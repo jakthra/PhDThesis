@@ -29,6 +29,18 @@
 \usepackage{color}
 \usepackage{listings}
 \usepackage{pdfpages}
+\usepackage{epigraph}
+\usepackage{titlesec}
+\makeatletter
+\titleformat{\part}[display]
+  {\Huge\scshape\filright}
+  {\partname~\thepart:}
+  {20pt}
+  {\thispagestyle{epigraph}}
+\makeatother
+\setlength\epigraphwidth{.6\textwidth}
+
+
 \input{acronyms}
 
 
@@ -279,24 +291,25 @@ and \mbox{Donald E.~Knuth}.
 % Start the main matter (normal chapters)
 \mainmatter
 
-
+\epigraphhead[350]{}
 \part{Data is a requirement}
 \input{chapters/monster.tex}
 \input{chapters/ageOfAI.tex}
 
-
+\epigraphhead[350]{.}
 \part{Estimation of invisible waves}
 \input{chapters/part_pathloss/pathlossmodels.tex}
 \input{chapters/part_pathloss/satelliteimages.tex}
 \input{chapters/part_pathloss/outdoor_to_indoor.tex}
 \input{chapters/part_pathloss/summary.tex}
 
+\epigraphhead[350]{.}
 \part{Uplink is desperate for attention}
 \input{chapters/part_uplink/pilotsignals.tex}
 \input{chapters/part_uplink/channelestimation.tex}
 \input{chapters/part_uplink/qlearning.tex}
 
-
+\epigraphhead[350]{.}
 \part{Cellular Networks and Deep Learning}
 \input{chapters/part_conclusion/contributions.tex}
 \input{chapters/part_conclusion/conclusion}
@@ -323,9 +336,10 @@ and \mbox{Donald E.~Knuth}.
 \backmatter
 
 
-\footnotesize
+
 %\bibliographystyle{plainnat}
-\printbibliography
+{\footnotesize
+\printbibliography}
 
 
 %\printindex

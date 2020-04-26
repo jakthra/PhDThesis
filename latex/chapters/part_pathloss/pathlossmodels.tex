@@ -121,18 +121,18 @@ Thus, M.2412 offers models termed $A$ and $B$. The difference is related to the 
 
 In \gls{3gpp} TR 38.901, attenuation for an Urban Macro scenario (\gls{uma}), given a \gls{nlos} transmission state is defined as
 
-% \begin{equation}\label{eq:uma_nlos_pathloss_max}
-%     PL_{UMa-NLOS}^' = \text{max} \left( PL_{UMa-LOS}, PL_{UMa-NLOS}^' \right)
-% \end{equation}
+\begin{equation}\label{eq:uma_nlos_pathloss_max}
+     PL_{UMa-NLOS}^{'} = \text{max} \left( PL_{UMa-LOS}, PL_{UMa-NLOS}^{'} \right)
+\end{equation}
 
 Where
 
-% \begin{align}\label{eq:uma_nlos_pathloss_max}
-% \begin{split}
-%     PL_{UMa-NLOS}^' &= 13.54+39.08\log_{10}(d_{3D}) \\
-%      &\quad+ 20\log_{10}(f_c) - 0.6(h_{UT}-1.5) \\
-%  \end{split}
-% \end{align}
+\begin{align}\label{eq:uma_nlos_pathloss}
+\begin{split}
+     PL_{UMa-NLOS}^{'} &= 13.54+39.08\log_{10}(d_{3D}) \\
+      &\quad+ 20\log_{10}(f_c) - 0.6(h_{UT}-1.5) \\
+  \end{split}
+ \end{align}
 
 Additionally, it uses the \gls{uma} \gls{los} model, $PL_{UMa-LOS}$. The loss in the \gls{los} model is dependent on a so-called \emph{breakpoint} distance which essentially turns the path loss function into to a multistep path loss function. The breakpoint distance is defined as $d_{bp} = 4 h_{BS} h_{UT} f_c / c$. In summary, the empirical model is a factor of the following parameters: $\mathbf{h_{BS}}$ (Base station height), $\mathbf{h_{UT}}$ (User terminal height), $\mathbf{d_{3D}}$ ($3$D distance), and $\mathbf{f_c}$ (Carrier frequency). The \gls{3gpp} path loss models can be found in \cite{3GPP38901} Table 7.4.1-1. 
 

@@ -89,30 +89,24 @@ A significant number of experiments were completed for scanning hyper-parameters
 
 
 
-% \begin{table}
-%     \centering
-%     \begin{subfigure}[b]{0.45\textwidth}
-% \begin{center}
-% \begin{tabular}{ll}
-% \multicolumn{2}{c}{\textbf{NN}}                                                       \\
-% \multicolumn{1}{l|}{Layer size} & [200, 200]                  \\ \hline
-% \multicolumn{1}{l|}{Activation}          & \emph{ReLU}                                     
-% \end{tabular}
-% \end{center}\label{tab:nn_arch}
-% \end{subfigure}
-% \begin{subfigure}[b]{0.45\textwidth}
-% \begin{center}
-% \begin{tabular}{ll}
-% \multicolumn{2}{c}{\textbf{NN2}}                                                       \\
-% \multicolumn{1}{l|}{Layer size} & [200, 16, 1]                  \\ \hline
-% \multicolumn{1}{l|}{Activation}          & \emph{ReLU}                                     
-% \end{tabular}
-% \end{center}\label{tab:nn2_arch}
-% \end{subfigure}
-% \vspace{1em}
-%     \caption{Architecture of the sub-models considered in the final model architecture. }\label{tab:nn_structure}
-
-% \end{table}
+\begin{table}
+\subfloat[][]{
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{NN}}                                                       \\
+\multicolumn{1}{l|}{Layer size} & [200, 200]                  \\ \hline
+\multicolumn{1}{l|}{Activation}          & \emph{ReLU}                                     
+\end{tabular}
+}
+\subfloat[][]{
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{NN2}}                                                       \\
+\multicolumn{1}{l|}{Layer size} & [200, 16, 1]                  \\ \hline
+\multicolumn{1}{l|}{Activation}          & \emph{ReLU}                                     
+\end{tabular}
+}
+\vspace{1em}
+\caption{Architecture of the sub-models considered in the final model architecture. }\label{tab:nn_structure}
+\end{table}
 
 \begin{margintable}
 \begin{tabular}{@{}ll@{}}
