@@ -1,0 +1,146 @@
+\chapter{Harnessing Meta-data}\label{ch:satelliteImages}
+% \textcolor{red}{
+
+% \begin{itemize}
+%     \item What is the issue of current modelling methodologies?
+%     \item \emph{Generalization} and \emph{Complexity}
+%     \item How can Generalization be remedied? 
+%     \item Obtaining features of propagation scenarios that are generalizable across propagation scenarios
+%     \item how can Complexity be remedied?
+%     \item 
+    
+% \end{itemize}}
+
+Any kind of propagation modelling requires data of the propagation scenario. Detailing propagation-specific information requires data and a pipeline, regardless of propagation model. The necessary level of detail is directly related to the accuracy of the channel model. For instance, using principles such as ray-tracing the far-field statistics can be computed with high accuracy, but if and only if, the propagation scenario is described with sufficient detail. Accurate channel models consider a data complexity trade-off. By default, if more data is available, it will offer fewer generalization issues but in return, require a complicated data pipeline for modelling. Less data complexity results in more generalization issues. So, is there a sweet spot where the complexity is low, and the generalization is high? This chapter aims to explore this area and supply an attempt at answering such a question. The requirements for low and high complexity propagation modelling methods is outlined in Chapter \ref{ch:channelmodellingbasics} along with the basics of wireless channel propagation impairments. 
+
+
+\section{Generalization and Complexity \label{sec:generalization}}
+
+
+
+Generalization and complexity is the core issue of path loss prediction. If detailed propagation specific data can be obtained, one can obtain accurate path loss estimates using complex models such as ray-tracing. However, if such data is not available, simpler model using closed-form solutions with simple parameters are useful. It has been shown that both methodologies have their use cases. For instance, simpler path loss models are used for initial link budgets and preliminary studies, while more complex models are used for complex optimization and the research of novel solutions.
+
+
+Simple path loss models are used in combinations with margins to ensure communication can be established. This however, will result in a margin of optimization and if channel models with higher accuracy could be utilized such a margin could be exploited. This exploitation could result in substantial gains in the overall cost of deployment and further optimization. So why not just use more accurate path loss models? They clearly exist and are well studied. In very simple terms, the data complexity is high and requires substantial efforts. In this chapter, \gls{dl} is applied to path loss estimation. More specifically, a novel \gls{dl} method is developed utilizing geographical images and expert knowledge for improving path loss estimation. Finally, the method is shown to be based on a feasible data complexity with a simplistic data pipeline that require no complex pre-processing procedures, such as required for ray-tracing models (See Section \ref{sec:ray-tracing}).
+
+\subsection{Feature engineering}
+
+Generalization has been a long standing issue for channel models as illustrated in \ref{sec:generalization}. In Machine Learning, the issue of generalization is also well studied and many direct comparisons can be made. It is well known, in the area of Machine Learning, that the features (and the resulting parameters of the model) are directly responsible for the performance on unseen data.  Such is the same in the area of channel models. Thus, it can be said that the performance of channel models are directly related to the input parameters used, or in other words, the features used. A comprehensive study of input parameters (features) and the relation to path loss can be found in \cite{Popoola2019}. 
+ 
+Examples of features used in combination with \gls{nn}: \emph{Longitude, Latitude, Distance, elevation, Altitude, Clutter height, portion through building, height, thickness, transmitting power, street width, building height, building speration, transmitter position, street orientation, base station antenna and rooftop height difference, direct ray, reflected ray from ground, two dominant reflected rays, frequency}
+
+The primary difference between models such as empirical models (See Eq. \ref{eq:uma_nlos_pathloss_max}), and \gls{nn}-based models can be outlined in simple terms. In Machine Learning, the aim is not only to discover the best parameters, e.g. features, but also the best model. Traditional path loss models are the result of significant research and measurement campaigns. Therefor, the path loss models is the result of a curve-fit given parameters that have statistical importance to the path loss. In such cases, the model is known and takes a from that is similar to that of Eq. \ref{eq:pathloss_model} (but with additional terms to account for various attenuation differences).
+
+The features used in \gls{nn}-based models versus traditional path loss models are similar for good reason. Having a complete data-driven approach should ultimately provide with similar answers as research have provided in terms of traditional path loss models. The benefit of working with adaptive models is that statistical knowledge is not necessary and is inferred from obtain observations. For instance, by using adaptive models, features that are not directly related to path loss (or at least by some unknown factor) are used to improve predictive performance. This have benefits and downsides. The benefits are that the performance of the models will improve as more data is obtained. The downside is that the performance can be challenging to evaluate with respect to propagation scenarios inherently different from where measurements have been obtained. With that being said, the end goal of path loss models must be to offer generalization regardless of propagation scenario and the features used. This goal is identical whether a traditional single-slope path loss model is used, or it is the product of training. 
+
+Ultimately \gls{nn} are limited in performance by the engineered features \cite{Alom2019AArchitectures}. Meaning, while the use of traditional \gls{nn} approaches may yield significant improvements to empirical models they are limited by the engineered features. This is not the case for \gls{dl}-based models. such models seek to learn from raw data. In this case we look towards the use of geographical images for improving the estimation of attenuation caused by large-scale parameters.
+
+
+\section{Use of satellite imagery}
+
+To avoid the need for complicated features, and time-consuming feature engineering aspects, we look towards \gls{dl}. The main principles of \gls{dl} and subsequently \gls{ml} are highlighted in Chapter \ref{ch:mlbasics}. 
+
+A novel methodology for path loss and signal quality parameter approximation using satellite images is proposed in this thesis. The results of the documented methods have resulted in three publications \cite{Thrane2018DriveApproximation, Thrane020ModelAidedDeepLearning, Thrane2020DeepKnowledge}. The main contributions of the publications are introduced in the remainder of this chapter, along with a more in depth discussion and conclusion. The model architecture for providing path loss and received signal quality metrics using satellite images have been under constant evolution. A significant difference in model architecture and complexity can be observed for all proposed methods.  For cohesion, all methods and the resulting performance is outlined in this section. However, all methods share the same essential component, utilizing images for improving signal quality parameter prediction. The evolution of the proposed method can be termed according to the iterations, thus \cite{Thrane2018DriveApproximation} as \emph{version 1 (v1)}, \cite{Thrane020ModelAidedDeepLearning} as \emph{version 2 (v2)} and \cite{Thrane2020DeepKnowledge} as \emph{version 3 (v3)}. 
+\begin{itemize}
+    \item A summary of \emph{version 1} can be found in Section \ref{sec:summary_version1}. 
+    \item A summary of \emph{version 2} can be found in Section \ref{subsec:conclusion_v2}. 
+    \item A summary of \emph{version 3} can be found in Section \ref{subsec:conclusion_v3}
+    \item Discussion, Conclusion and future outlook can be found in Section \ref{sec:satellite_image_discussion}
+\end{itemize}
+\noindent
+High resolution satellite images of areas are obtainable using such services as the \emph{static API} from Google Maps \cite{GoogleAPI}, or Mapbox API \cite{MapboxWebsite}. The latter is utilized for this work. The idea of predicting path loss from such images stems mainly from the data availability, but also because such images outline the actual details of a propagation environment. The magnitude of details present in high resolution satellite images greatly surpass that of available open-source meta-data used in models such as ray-tracing. In order to formalize the use of satellite images for path loss prediction, several factors and features needs to be considered in order to aid the learning process. Given the empirical knowledge of path loss in outdoor propagation scenarios as presented in Chapter \ref{ch:channelmodellingbasics}, we can hypothesise where such images may offer the most gain. Local variability, is a term describing losses associated with local obstacles in relation to a receiver position for instance, buildings or vegetation. The primary purpose of the satellite images is to assist in determining attenuation related to local variability from imagery that visualize the local area of the receiver. Thus, in order to effectively utilize such images, they must contain information of local variability, e.g. the large-scale fading present in the environment. In order to do so the images must be of high enough resolution such that buildings, vegetation and other structure can clearly be observed.
+
+
+\subsection{Problem statement}
+
+The function we desire to learn is the received power for a given position in relation to the transmitter. If the reader recall the link-budget from \ref{ch:channelmodellingbasics}. It takes the form
+\begin{equation}
+    P_{rx} = P_{tx} + G_{tx} + G_{rx} + L_{rx} + L_{tx} + \underbrace{L(x,y)}_{\text{Path loss}}
+\end{equation}
+The received power is dependent thus on constants, such as transmission power, gains associated with the transmitter and receiver and losses hereof. The mostly unknown constant of the link budget is dependent on the position in the radio environment. Thus the function we desire to learn consists of constants, and a function that is positional dependent.  
+
+The task is to obtain a model that can continuously predict received power given an image and some position location features. In the world of \gls{ml}, such a model is of type \emph{regression} and follows the form:
+\begin{equation}\label{eq:dl_model_satellite}
+    t_n = y(x_n, \mathbf{w}, \theta) + \epsilon
+\end{equation}
+
+Where $y(\cdot)$ is the function we desire to learn given input parameters $x_n$, a set of learned weights $\mathbf{w}$ and some hyper-parameters $\theta$. We define the output of the model $t_n$. Different techniques can be used to learn the function $y(\cdot)$, in this work \gls{dnn} are used due to the use of images. The methodologies associated with vision type models are rooted in \gls{nn}-based models.
+
+
+
+We define the a single input to consists of the following
+
+\begin{equation}\label{eq:dnn_inputs}
+    x_n = [\text{lat}, \text{lon}, B_{tx}, d_{\text{lat}}, d_{\text{lon}}, d, \mathbf{A}]
+\end{equation}
+
+$\text{lat}, \text{lon}$ identify the geographical coordinates of the receiver, $B_{tx}$ is a variable used to identify the transmitter. $ d_{\text{lat}}, d_{\text{lon}} $ denote the distance in latitude and longitude direction respectively. $d$ denote the distance straight as the crow flies. It is important to note that the only engineered features are the distance metrics, as they are derived based on position of the receiver and the transmitter. $\mathbf{A}$ is used to denote the image of the local area around the receiver position. 
+
+In order to be able to capture and process images, principles from computer vision are applied. This is termed \gls{cnn} as described in Section \ref{sec:convolutions} and uses convolution operations to process the properties of images.
+
+This is posed as a supervised learning problem, thus for each system input ($x_n$) a target is required ($t_n$). The LTE-A reference parameter \gls{rsrp} is used as a definite approximation of received power for the transmitting base station. \textcolor{red}{Define RSRP}. Thus $t_n = \text{\gls{rsrp}}$. It should be noted that several targets can be assigned for the same input, as accomplished in \cite{Thrane2018DriveApproximation}, such as \gls{rssi} and \gls{sinr}. The reason for not including these in later research are described in Section \ref{sec:satellite_image_discussion}.
+
+To learn in a supervised fashion, a cost function is required. The sum-of-squares error function between the model output and the observation is used Eq. (\ref{eq:sum-of-squares}). If recalled, minimizing such an error function corresponds to maximize the likelihood function if the targets have noise that is Gaussian distributed. This is also denoted as $\epsilon \sim \mathcal{N}(\mu,\,\sigma^{2})$ from Eq. (\ref{eq:dl_model_satellite}). If the reader can recall from Chapter \ref{ch:channelmodellingbasics}, the distribution of local variability, e.g. large-scale fading can be approximated with a log-normal distribution. We thus assume, that the observations of $t_n$ are under the influence of large-scale fading.
+
+The optimization is complete using principles of gradient descent and back propagation, as detailed in Section \ref{sec:neural_networks}.
+
+
+
+\subsection{Images}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{chapters/part_pathloss/figures/satellite_example.eps}
+    \caption{Example of satellite images and the proposed rotation to separate transmitters in same locations.}
+    \label{fig:satellite_example}
+\end{figure}
+A single image of size $256 \times 256 \times 3$ (width, height, RGB color channels) was obtained for each measurement. The area spanned by the images corresponds to roughly $180 m^2$. The reasoning for the image size and the area covered was mainly sparked from the observed level of detail. The images contain a large enough area to display important buildings and vegetation with sufficient detail. When constructing the dataset with the images, two main concerns arose
+\begin{enumerate}
+
+    \item Measurements from different transmitters at the same position, how would the images need to differ?
+    \item How to embed distance between transmitter and receiver?
+\end{enumerate}
+
+The approach for 1) was to rotate according to the transmitter. That way, images are the same area (or same position even) were inherently different. A fixed image size is simplifies the \gls{dl} model greatly, so it was avoided to embed further information into the images. to ensure 2) is addressed, the distance was thus given as a feature along with the positional locators. This ensure the primary objective of the images, is to offer information of geostatistics representing local variablility. An example of such a rotation can be seen in Fig. \ref{fig:satellite_example}.
+
+
+
+\input{chapters/part_pathloss/part_satellite_images/initial_model_v1}
+
+\input{chapters/part_pathloss/part_satellite_images/expert_knowledge_v2}
+
+\input{chapters/part_pathloss/part_satellite_images/osm_images}
+
+
+
+\section{Identified Challenges}\label{sec:identified_challenges_satellite}
+A multitude of model architectures and training procedures have been documented throughout this Chapter. Along the way several pressing technical challenges have been identified. These can be reduced to the following items.
+
+\begin{itemize}
+    \item Convolutional layers are challenging to interpret.
+    \item Embedding expert knowledge for other signal quality parameters.
+    \item Clutter and Altitude/Height information not easily available.
+\end{itemize}
+
+The use of a \gls{cnn} for processing the images is a powerful tool for enabling latent features useful for signal quality parameter prediction. Essentially, \gls{cnn} use convolutional layers (or filterbanks) to apply a set of filters and feature extraction principles for reducing input images into useful features. In other words, the trained model consists thus of filters. The filters activate on important statistics present in the images, that are useful for the final predictors. Thus, in order to effectively improve the proposed methods, such filters needs to be further investigated and explored. However, such a testing and experimental procedure is not trivial and requires not only vigorous testing but also a significant number of samples for validating any resulting knowledge obtained. The addition of the German-based measurements enables such studies, therefor it is imperative for future studies that the learned filters are analysed.
+
+It is shown that the model can be improved by embedding expert knowledge, in terms of a path loss model, into the training procedure. The results of the initial version (\emph{v1}) show that other signal quality parameters (such as \gls{rsrq} and \gls{sinr}) can be predicted with high accuracy. An identified challenge is the embedding of expert knowledge capable of aiding the prediction capabilities of such parameters. 
+
+The use of simplified geographical images does not increase the prediction errors compared to utilizing high-resolution satellite images. In both cases no altitude or height information is embedded. Some height information are embedded in the satellite images, in terms of shadows of the resulting buildings and other details. However, as shown in state-of-the-art image segmentation algorithms, deducing building height from shadows alone is prone to significant errors. Thus, a challenge of the methodology would be to explore new avenues of embedding height information. In the \gls{osm} images, such a feature could be directly enabled onto building shapes by for instance using a color-mapping. Clutter data, important for higher frequencies (e.g. shorter wavelengths) is shown to have significant impact on the received power of the receiving devices. Thus being able to model such data is critical to accurate predictions. Therefor, extending the image information with clutter related data while keeping the data complexity low seems like a logical next step for the use of the methodology.
+
+
+\section{Summary}\label{sec:satellite_image_discussion}
+The process of utilizing satellite images for path loss prediction has been an ongoing process of relevant study items. The different iterative steps for improving and studying the approach has been documented throughout this chapter, an termed by the different \emph{versions}. The outcome of each iteration has extensively been discussed and can be summarized as follow:
+\begin{itemize}
+    \item \emph{Version 1} Initial exploration - Proof of concept. Generalization issues and further need for comparative studies.
+    \item \emph{Version 2} Model-aided approach - Applied techniques for improving generalization and the comparison to traditional approaches.
+    \item \emph{Version 3} Simplified images - Additional measurements from an inherently different origin. The study of simplistic images and the impact on predictive performance
+\end{itemize}
+
+\textcolor{red}{Maybe add figure here if time allows it}
+
+
+The iterative improvements of the model has allowed for well-defined conclusions. Taking a step back, the knowledge obtained can be reduced for relevant terms associated with wireless communication and cellular networks. It was well known in literature that \gls{nn} can provide with highly accurate path loss predictions that can (possibly) assist in deployment and optimization processes of the cellular networks. However, what is not discussed is the underlying dangers of supervised learning. It can be seen throughout \emph{version 1} and also to some extent \emph{version 2} that high performance can be achieved on the dataset at which the model is trained. Which is obvious due to the fundamental principles of \gls{ml}. The dangers of supervised learning arise when the generalization is unexplored or with significant bias. This is explore and testing in \emph{version 3} by using a inherently different data source. If \gls{nn}-based path loss models are to be of any use, vigorous testing and comparative studies are essential otherwise such models are useless. The aim of the method developed throughout this PhD project has been to go beyond that and lay the foundation for methods that not only improve performance in terms of dB but also ensure the predictions are within reason and intuition. 
+
+Much more data can essentially be integrated into path loss modelling using the principles documented throughout chapter. It is important that the complexity of such that (not only obtaining it but also processing it) remains low otherwise the models become useless for their sole purpose: \emph{To model capacity and coverage for the optimization of cellular systems and infrastructure.}
