@@ -86,7 +86,7 @@ The LIDAR coordinate pairs are given in a coordinate systems related to that of 
 
 \subsection{Setup}
 
-\begin{table}[b]
+\begin{table}[htbp]
 \centering
 \begin{tabular}{@{}l|l@{}}
 \toprule
@@ -173,7 +173,26 @@ Finally, the terrain information for computing and deriving the penetration dist
 
 
 \subsection{Results}
-The measured \gls{rsrp} concatenated for all measurement subsets (i.e. corridors) are seen in Fig. \ref{fig:indoor_distance_reg} as a function of the $3$D distance (a), and $d_{in,2d}$ (b). Also shown is the prediction of the basic path loss offered by the \gls{3gpp} \gls{uma} model as given by partly by Eq. (\ref{eq:uma_nlos_pathloss_max}). The full path loss model can be found in \cite{38211}. Several (easy separately) clusters are observed for \gls{rsrp} as a function of $d_{in,2d}$, as seen in Fig. \ref{fig:indoor_distance_reg}(b), corresponding to each of the different corridors in which measurements were conducted.
+
+\begin{table}
+    \centering
+    \begin{tabular}{@{}l|ll@{}}
+    \toprule
+    Regressors               & $R^2$ & Residual MSE \\ \midrule
+    $3$D distance              & $0.285$ & $74.973$       \\
+    $d_{in,2D}$              & $\mathbf{0.026}$ & $\mathbf{102.098}$      \\
+    $d_{in,3D}$              & $0.026$ & $102.097$      \\
+    $d_{pen,3D}$             & $0.017$ & $103.022$      \\
+    $d_{pen,3D} + d_{in,2D}$ & $0.005$ & $104.335$      \\
+    $d_{cor,avg}$            & $\mathbf{0.148}$ & $\mathbf{89.286}$       \\
+    $d_{pen,3D} + d_{in,2D}+d_{cor,avg}$ & $0.150$ & $89.276$       \\
+    $d_{pen,3D} + d_{in,3D}+d_{cor,avg}$ & $0.150$ & $89.276$       \\
+    $\phi + \theta$          & $\mathbf{0.173}$ & $\mathbf{86.763}$       \\ \bottomrule
+    \end{tabular}
+    \caption{Results of linear regression using OLS \cite{seabold2010statsmodels}}\label{tab:ols_results}
+    \vspace{1em}
+\end{table}
+\noindent The measured \gls{rsrp} concatenated for all measurement subsets (i.e. corridors) are seen in Fig. \ref{fig:indoor_distance_reg} as a function of the $3$D distance (a), and $d_{in,2d}$ (b). Also shown is the prediction of the basic path loss offered by the \gls{3gpp} \gls{uma} model as given by partly by Eq. (\ref{eq:uma_nlos_pathloss_max}). The full path loss model can be found in \cite{38211}. Several (easy separately) clusters are observed for \gls{rsrp} as a function of $d_{in,2d}$, as seen in Fig. \ref{fig:indoor_distance_reg}(b), corresponding to each of the different corridors in which measurements were conducted.
 
 \begin{figure}
     \centering
@@ -190,23 +209,6 @@ The results of a linear regression using \gls{ols} are observed in Table. \ref{t
 
 The results of the linear regression shows a correlation coefficient $R^2$ of $0.026$, with a residual \gls{mse} of $102.098$ using the indoor distance metric of $d_{in,2d}$. Adding and using the elevation angle to obtain $d_{in,3d}$ offers no increase or decrease in the linear model performance. The use of $d_{pen}$ in $3$D have a decrease in  $R^2$ of $\approx 0.001$ compared to the metric of $d_{in}$, and an increase in the residual \gls{mse} of $\approx 1$ dB. Most noticeably is the increase in linear predictive performance when using the parameter $d_{cor,avg}$, and furthermore when utilizing the azimuth and elevation angles $\phi, \theta$.
 
-\begin{table}[]
-\centering
-\begin{tabular}{@{}l|ll@{}}
-\toprule
-Regressors               & $R^2$ & Residual MSE \\ \midrule
-$3$D distance              & $0.285$ & $74.973$       \\
-$d_{in,2D}$              & $\mathbf{0.026}$ & $\mathbf{102.098}$      \\
-$d_{in,3D}$              & $0.026$ & $102.097$      \\
-$d_{pen,3D}$             & $0.017$ & $103.022$      \\
-$d_{pen,3D} + d_{in,2D}$ & $0.005$ & $104.335$      \\
-$d_{cor,avg}$            & $\mathbf{0.148}$ & $\mathbf{89.286}$       \\
-$d_{pen,3D} + d_{in,2D}+d_{cor,avg}$ & $0.150$ & $89.276$       \\
-$d_{pen,3D} + d_{in,3D}+d_{cor,avg}$ & $0.150$ & $89.276$       \\
-$\phi + \theta$          & $\mathbf{0.173}$ & $\mathbf{86.763}$       \\ \bottomrule
-\end{tabular}
-\caption{Results of linear regression using OLS \cite{seabold2010statsmodels}}\label{tab:ols_results}
-\end{table}
 
 The predictive performance of utilizing the \gls{o2i} path loss model given by Eq. (\ref{eq:o2i_pl}) is shown in Fig. \ref{fig:mae_boxplot_o2i_pl_in}. The indoor distance parameter of Eq. (\ref{eq:o2i_pl_in}) is altered to use the engineered features of indoor distance, and penetration distance, and a combination of. In other words, the parameter of $d_{in}$ is substituted with the engineered distance features. The \emph{none} case is the use of Eq. (\ref{eq:o2i_pl}) but without the term of $PL_{in}$. It can be seen that the average predictive error of $9.9$ dB is achieved using no terms for attenuation related to indoor distances. A decrease in predictive performance, e.g. an increase in \gls{mae} of $\approx 1.1$ dB is observed utilizing $d_{in,2d}$ as an indoor distance parameter. The performance decreases as the remainder of the engineered features are utilized, peaking at $\approx 26.9$ dB of error using $d_{in,3d}+d_{pen,3d}$ as the indoor distance metric. Finally, it can be said that the performance generally decrease with an increase in distance indoor distance utilizing the proposed model of Eq. (\ref{eq:o2i_pl}).
 
