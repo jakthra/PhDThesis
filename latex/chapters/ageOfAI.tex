@@ -90,7 +90,7 @@ The gradient information is relatively easy to utilise, if and only if, one can 
 
 
 
-\subsection{ training, test and validation}
+\subsection{Training, test and validation}
 Learning any model requires separate datasets for training and testing the model. This is to avoid such principles as over and underfitting. In short terms, if complexity of the model is higher than what is required for learning the underlying function it results in learning of the noise present in the dataset instead of the characteristics of the problem. Which is usually not desired. This is also termed overfitting. If the model is simpler than the function to be learned, the model will not provide effective predictions and is termed underfitting. A comprehensive and detailed introduction to such overfitting and underfitting terms and how it relates to model complexity can be found in \cite{M.Bishop2006}. In order to test and validate the performance of a trained model, the data is split into separate dataset. Some of the data is thus kept unseen to the model when trained. Over time and experiments, it is unavoidable to develop some kind of bias for a particular dataset, regardless of it being seen or not during training. Thus, the more data available, the more validation is possible. A few common tricks of the trade can be used to increase data quantities, such as \emph{data augmentation} (See \ref{sec:regularization}) or \emph{cross-validation}. The objective being the same; improve performance of the model for unseen combinations of features and targets. In other words, separate datasets are required for validating if the underlying characteristics of the problem has been learned and if the model is well tuned.
 
 \subsection{Optimizers}\label{subsec:optimizers}
@@ -145,7 +145,7 @@ The metric of evaluating the training and test loss depends on the model archite
 \end{equation}
 
 
-\section{\gls{dl} Basics}\label{sec:dlbasics}
+\section{\acrlong{dl} Basics}\label{sec:dlbasics}
 
 \gls{dl} is essentially considered an extension of \gls{ml} and utilize a set of tools and functions for processing raw data. A brief overview of these tools will be given in this section. There is a significant number of resources capable of explaining these functions much better and in improved detail. If the reader requires additional information \cite{Nielsen2015} and \cite{Goodfellow-et-al-2016} are recommended resources. The term \gls{dl} and \gls{dnn} are for the remainder of this thesis used interchangeably. It is important to note that \glspl{dnn} is term describing a well-defined toolbox of various computational buildings blocks using \gls{nn} principles, whereas \gls{dl} is a more generic description of a family of models that harness raw data for solving complex problems.
 
@@ -181,13 +181,13 @@ Pooling is the operation of reducing the dimensionality of the feature maps prod
 
 
 \subsection{Activation functions}
-Activation functions are essentially functions applying non-linear transformation of a given input. The purpose of which is to transform a set of inputs to a set of features that offer information relevant for learning. Several activation functions are commonly used in most \gls{dnn}, such as \emph{sigmoid}, \emph{tanh}. However, \gls{relu} is considered the default activation function due to the simple properties. The linearity of the \gls{relu} function is said to preserve generalisation properties of linear models while ensuring the optimisation is simple. These are useful properties for very deep and large \gls{dnn}. And furthermore, \gls{relu} ensures that the gradients does not explode and cause unstability when learning. However, the use of \gls{relu} can results in a so-called \emph{dying} \gls{relu} where the gradient simply becomes zero and thus offer nothing during backpropagation. By adding a simple linear slope to the negative area of the step function, it provides a small variation required for learning.
+Activation functions are essentially functions applying non-linear transformation of a given input. The purpose of which is to transform a set of inputs to a set of features that offer information relevant for learning. Several activation functions are commonly used in most \gls{dnn}, such as \emph{sigmoid}, \emph{tanh}. However, \gls{relu} is considered the default activation function due to the simple properties. The linearity of the \gls{relu} function is said to preserve generalisation properties of linear models while ensuring the optimisation is simple. These are useful properties for very deep and large \gls{dnn}. And furthermore, \gls{relu} ensures that the gradients does not explode and cause unstability when learning. However, the use of \gls{relu} can results in a so-called \emph{dying} \gls{relu} where the gradient simply becomes zero and thus offer nothing during backpropagation. By adding a simple linear slope to the negative area of the step function, it provides a small variation required for learning. An example can be found in Fig. \ref{fig:leakyrelu}
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{chapters/figures/relu_leakyrelu_example.eps}
     \caption{Activation output of \gls{relu}, leaky \gls{relu} and tanh.}
-    \label{fig:my_label}
+    \label{fig:leakyrelu}
 \end{figure}
 
 
@@ -206,8 +206,12 @@ The components of convolutional layers can effectively apply a set of dimensiona
 
 
 \subsection{Learning Rate scheduler}\label{subsec:lr_scheduler}
-The learning rate is a fundamental component of the weight update utilised in backpropagation. As seen from Eq. (\ref{eq:weight_update}) it defines the \emph{step size} of the gradient descent method. When utilising \gls{dl} models, the weight space in which the gradient is computed tend to be complex. A key issue of training \gls{dl} models (or any \gls{ml} model for that matter) is the presence of local minima. As discussed in section \ref{subsec: optimisers} the modern optimisers approach this by introducing terms when updating the weight. However, the learning rate is still considered an essential term for the overall weight update. Effectively having a too high learning rate results in never reaching the global minima, while having a step size that is too low may result in no convergence within a feasible runtime. Thus, effectively controlling the parameter during training is the purpose of a so-called \emph{Learning Rate Scheduler}. By observing a metric of relevance, the properties of the learning rate can be evaluated while training. One approach is then to notice when no improvements takes place during training and lower the learning rate as a result. This is also termed a \emph{Learning Rate Scheduler on Plateau}. An example can be seen in Fig. \textcolor{red}{XX}, where learning has stagnated and is sequentially reduced.
+The learning rate is a fundamental component of the weight update utilised in backpropagation. As seen from Eq. (\ref{eq:weight_update}) it defines the \emph{step size} of the gradient descent method. When utilising \gls{dl} models, the weight space in which the gradient is computed tend to be complex. A key issue of training \gls{dl} models (or any \gls{ml} model for that matter) is the presence of local minima. As discussed in section \ref{subsec:optimizers} the modern optimisers approach this by introducing terms when updating the weight. However, the learning rate is still considered an essential term for the overall weight update. Effectively having a too high learning rate results in never reaching the global minima, while having a step size that is too low may result in no convergence within a feasible runtime. Thus, effectively controlling the parameter during training is the purpose of a so-called \emph{Learning Rate Scheduler}. By observing a metric of relevance, the properties of the learning rate can be evaluated while training. One approach is then to notice when no improvements takes place during training and lower the learning rate as a result. This is also termed a \emph{Learning Rate Scheduler on Plateau}. An example can be seen in Fig. \ref{fig:learning_rate}, where learning has stagnated and is sequentially reduced.
 
+\begin{figure}
+    \includegraphics[]{chapters/figures/learningrate_scheduler_example.eps}
+    \caption{Example of the training loss with a learning rate scheduler using a patience of 10 epochs before lowering the learning rate. }\label{fig:learning_rate}
+\end{figure}
 
 \subsection{Hyper-parameters}
 

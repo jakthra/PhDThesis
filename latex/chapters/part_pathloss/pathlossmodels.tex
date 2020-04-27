@@ -156,15 +156,24 @@ The complete budget of attenuation related to transmission can be modeled as a \
 
 Where $L(d)$ is the mean path loss, for instance the \gls{uma} model as seen in Eq. (\ref{eq:uma_nlos_pathloss_max}), $X_\sigma$ is shadow fading and $L(t)$ is small-scale fading. Guidelines and parameters of both the large- and small-scale terms are given in the 3GPP and ITU documents. The amount of parameters are quite significant thus only a small selection of principles, methodologies and parameters are included in this thesis. 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{chapters/part_pathloss/figures/UMaPL.eps}
+    \caption{Example of Eq. (\ref{eq:pathloss_model}) for a time-invartiant channel with spatial consistency.}
+\end{figure}
+
+
 \subsection{Shadow fading}
+
+As noted eariler, large-scale and more specifically shadow fading is well represented by a log-normal distribution. Thus $X_\sigma \sim \mathcal{N}(\mu, \sigma^2)$ is a log-normal distribution with mean zero and a variance determined by $\sigma$. The magnitude of $\sigma$ is dependent on the propagation scenario, for instance \gls{uma} or \gls{rma}. The variance of the distribution dictates the variability of the shadowing impairments and is also known as \emph{local variability} \cite{Perez-Fontan2008}. The magnitude of shadowing is determined using measurement studies, such as the one seen in \cite{Sun2016}. The studies mentioned in the fore mentioned work is used as a baseline for the models proposed and defined in \textit{3GPP 38.901}. The magitude for different propagation scenarios, each with a \gls{los} and \gls{nlos}, state. An example of the standard deviation, i.e. the magnitude of shadowing in dB can be observed in Table \ref{tab:sigma_SF} for each of the defined propagation scenarios.
+
 
 \begin{figure}
     \centering
-    \includegraphics{chapters/part_pathloss/figures/UMaUMiShadowFadingMapNLOS.eps}
+    \includegraphics{chapters/part_pathloss/figures/UMaUMiShadowFadingMapLOS.eps}
     \caption{Example of shadowing fading magnitude maps in x,y coordinates with spatial consistency for \gls{uma} and \gls{umi}.}
-    \label{fig:my_label}
+    \label{fig:uma_umi_shadow_fading_example}
 \end{figure}
-As noted eariler, large-scale and more specifically shadow fading is well represented by a log-normal distribution. Thus $X_\sigma \sim \mathcal{N}(\mu, \sigma^2)$ is a log-normal distribution with mean zero and a variance determined by $\sigma$. The magnitude of $\sigma$ is dependent on the propagation scenario, for instance \gls{uma} or \gls{rma}. The variance of the distribution dictates the variability of the shadowing impairments and is also known as \emph{local variability} \cite{Perez-Fontan2008}. The magnitude of shadowing is determined using measurement studies, such as the one seen in \cite{Sun2016}. The studies mentioned in the fore mentioned work is used as a baseline for the models proposed and defined in \textit{3GPP 38.901}. The magitude for different propagation scenarios, each with a \gls{los} and \gls{nlos}, state. An example of the standard deviation, i.e. the magnitude of shadowing in dB can be observed in Table \ref{tab:sigma_SF} for each of the defined propagation scenarios.
 
 \begin{table}[b]
 \centering

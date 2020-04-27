@@ -119,6 +119,11 @@
   \end{fullwidth}
 }
 
+\newcommand*{\SignatureAndDate}[1]{%
+    \par\noindent\makebox[2.5in]{\hrulefill} \hfill\makebox[2.0in]{\hrulefill}%
+    \par\noindent\makebox[2.5in][l]{#1}      \hfill\makebox[2.0in][l]{Date}%
+}%
+
 % Inserts a blank page
 \newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage}
 
@@ -186,15 +191,15 @@
 \titlecontents{chapter}%
     [4em]% distance from left margin
     {}% above (global formatting of entry)
-    {\contentslabel{2em}\textit}% before w/ label (label = ``Chapter 1'')
-    {\hspace{3em}\textit}% before w/o label
+    {\contentslabel{4em}}% before w/ label (label = ``Chapter 1'')
+    {\hspace{3em}}% before w/o label
     {\hfill\thecontentspage}% filler and page (leaders and page num)
     [\vspace*{0.5\baselineskip}]% after
 
 \titlecontents{section}%
     [4.5em]% distance from left margin
     {}% above (global formatting of entry)
-    {\contentslabel{2em}\textit}% before w/ label (label = ``Chapter 1'')
+    {\contentslabel{4em}\textit}% before w/ label (label = ``Chapter 1'')
     {\hspace{3em}\textit}% before w/o label
     {\hfill\thecontentspage}% filler and page (leaders and page num)
     [\vspace*{0.5\baselineskip}]% after
@@ -265,8 +270,9 @@ under the License.\index{license}
 \printglossary[type=\acronymtype, nonumberlist, title=Acronyms]
 
 % r.5 contents
+\begin{fullwidth}
 \tableofcontents
-
+\end{fullwidth}
 
 %\listoffigures
 %\listoftables
@@ -277,9 +283,7 @@ under the License.\index{license}
 \begin{doublespace}
 \noindent\fontsize{18}{22}\selectfont\itshape
 \nohyphenation
-Dedicated to those who appreciate \LaTeX{} 
-and the work of \mbox{Edward R.~Tufte} 
-and \mbox{Donald E.~Knuth}.
+Dedicated to my mother (Hi, Mom!).
 \end{doublespace}
 \vfill
 \vfill
@@ -294,25 +298,26 @@ and \mbox{Donald E.~Knuth}.
 % Start the main matter (normal chapters)
 \mainmatter
 
+%\epigraphhead[350]{Modern and future mobile communication systems are complex engineering achievements. Machine Learning thrives on data and is expected to offer improved optimization techniques for future mobile communication systems.}
 \epigraphhead[350]{}
 \part{Data is a requirement}
 \input{chapters/monster.tex}
 \input{chapters/ageOfAI.tex}
 
-\epigraphhead[350]{.}
+\epigraphhead[350]{}
 \part{Estimation of invisible waves}
 \input{chapters/part_pathloss/pathlossmodels.tex}
 \input{chapters/part_pathloss/satelliteimages.tex}
 \input{chapters/part_pathloss/outdoor_to_indoor.tex}
 \input{chapters/part_pathloss/summary.tex}
 
-\epigraphhead[350]{.}
+\epigraphhead[350]{}
 \part{Uplink is desperate for attention}
 \input{chapters/part_uplink/pilotsignals.tex}
 \input{chapters/part_uplink/channelestimation.tex}
 \input{chapters/part_uplink/qlearning.tex}
 
-\epigraphhead[350]{.}
+\epigraphhead[350]{}
 \part{Cellular Networks and Deep Learning}
 \input{chapters/part_conclusion/contributions.tex}
 \input{chapters/part_conclusion/conclusion}
@@ -320,7 +325,8 @@ and \mbox{Donald E.~Knuth}.
 
 
 
-
+\epigraphhead[350]{}
+\part{Appendix}
 \appendix
 \input{appendix/drive_test_study.tex}
 \input{appendix/ray_tracing_model.tex}

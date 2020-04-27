@@ -263,9 +263,10 @@ A channel estimator for \gls{srs} pilot sequences of different configurations ha
 Given the learning capabilities of the deep channel estimator, and the above presented achievable error. It was perceived that the proposed approach is capable of generalizing channel characteristics given a wide range of sparse \gls{srs} sequences. If such is the case, and the model is well-tuned, it would be expected that future channel characteristics can be inferred given the past experiences. It was thus desired to explore such an application, where the learned model is also capable of providing an intelligent decision regarding the most optimal placement of the future pilot sequence. In order to do so, the idea of utilizing Bayesian Approximation seemed appropriate (as described in \ref{ch:mlbasics}), since dropout layers are utilized in the model structure. The model can be \gls{mc} sampled to obtain an approximation of the posterior distribution. Taking an action for optimized placement can then be formalized as the corresponding sequence of necessary initial steps:
 
 \begin{enumerate}
-    \item Initialize an empty resource grid, place an initial pilot sequence randomly
-    \item Sample the learned model with the sparse resource grid to obtain a posterior distribution of the entire resource grid
-    \item Average over I and Q components for all \gls{ofdm} symbols
+    \item Initialize an empty resource grid, place an initial pilot sequence randomly.
+    \item Apply channel model.
+    \item Sample the learned model with the sparse resource grid to obtain a posterior distribution of the entire resource grid.
+    \item Average over I and Q components for all \gls{ofdm} symbols.
     \item Obtain the standard deviation over the entire resource grid.
     \item Find the sequence of subcarriers across the entire frame with the highest standard deviation.
 \end{enumerate}
