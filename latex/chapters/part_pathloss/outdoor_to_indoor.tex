@@ -1,5 +1,5 @@
 \chapter{The unforgiving LOS-state}\label{ch:deepindoor}
-The task of predicting attenuation of radio transmission in \gls{o2o} scenarios increases in complexity with increased distance, due to the increased number of objects in the radio environment. The task of predicting attenuation in \gls{o2i} is significantly more complex, due to specific interactions of the different materials in between the transmitter and receiver antennas. The campus of The Technical University of Denmark (DTU) consists of a unique underground system. Given the efforts spent in understanding and applying Deep Learning to path loss estimation for \gls{o2o} scenarios, utilizing this unique tunnel system for studies seemed relevant for improving and evaluating current models available in literature. This has resulted in to publications
+The task of predicting attenuation of radio transmission in \gls{o2o} scenarios increases in complexity with increased distance, due to the increased number of objects in the radio environment. The task of predicting attenuation in \gls{o2i} is significantly more complex, due to specific interactions of the different materials in between the transmitter and receiver antennas. The campus of The Technical University of Denmark (DTU) consists of a unique underground system. Given the efforts spent in understanding and applying Deep Learning to path loss estimation for \gls{o2o} scenarios, utilizing this unique tunnel system for studies seemed relevant for improving and evaluating current models available in the literature. The results are formalized into two publications
 
 \begin{itemize}
     \item \textbf{Investigation of deep indoor NB-IoT propagation attenuation}, IEEE VTC-Fall 2019 \cite{Malarski2019InvestigationAttenuation}
@@ -10,9 +10,9 @@ The former introducing the concepts of Deep Indoor propagation modelling with an
 
 \section{Deep Indoor}
 
-With the development and standardization of \gls{lpwan} technologies such as \gls{nbiot} battery powered sensors are being deployed in unreachable scenarios (usually indoor) to allow for new application and services \cite{Sinha2017ANB-IoT}. This will result in a significant number of complex deployment situations where an accurate coverage model is a necessity \cite{Lauridsen2016CoverageArea, Vejlgaard2017}. In the case of indoor deployments where already deployed 4G, \gls{lte} or 5G, \gls{nr} basestations are utilized for transmission we term the transmission scenario as \gls{o2i}. A comprehensive introduction and summary of the inner workings and best practices for deploying \gls{nbiot} can be found in references such as \cite{Sinha2017ANB-IoT, Li2018SmartNB-IoT, Chen2017NarrowThings} and references herein.
+With the development and standardization of \gls{lpwan} technologies such as \gls{nbiot} battery-powered sensors are being deployed in unreachable scenarios (usually indoor) to allow for new application and services \cite{Sinha2017ANB-IoT}. New applications will result in a significant number of complex deployment situations where accurate coverage and capacity estimation is a necessity \cite{Lauridsen2016CoverageArea, Vejlgaard2017}. Current deployments of \gls{nbiot} sites commonly takes place outdoor. In this case, the transmission to \glspl{ue} inside buildings or structures is termed \gls{o2i}. A comprehensive introduction and summary of the inner workings and best practices for deploying \gls{nbiot} can be found in references such as \cite{Sinha2017ANB-IoT, Li2018SmartNB-IoT, Chen2017NarrowThings} and references herein.
 
-The applications of \gls{nbiot} are many due to the long-range transmission qualities, and the battery operated sensors. The application of \gls{nbiot} to remote monitoring is subject to reliability concerns regarding 1) reliably connectivity and 2) regulated power consumption. For instance, placing sensors in hard to reach areas, such as used for smart water metering it is essential that the sensors are reliable and not subject to repair or replacement within short periods of deployment \cite{Popli2019AChallenges}. 
+The applications of \gls{nbiot} are many due to the long-range transmission properties, and the battery-operated sensors. The use of \gls{nbiot} to remote monitoring is subject to reliability concerns regarding 1) reliably connectivity and 2) regulated power consumption. For instance, placing sensors in hard to reach areas, such as used for smart water metering the sensors must be reliable and not subject to repair or replacement within short periods of deployment \cite{Popli2019AChallenges}. 
 
 
 
@@ -23,34 +23,34 @@ The applications of \gls{nbiot} are many due to the long-range transmission qual
     \label{fig:outdoor_to_indoor_approach}
 \end{figure*}
 
-Coverage modelling is an essential element for deploying any \gls{nbiot} sensor, and an even more important aspect when deploying sensors in hard to reach areas. This is the case from both the perspective of the \gls{mno}, but also the cosumer and enterprise owning the sensors. For instance, as visualized in Fig. \ref{fig:outdoor_to_indoor_approach} some sensors might require displacement to ensure reliable connection, and in some cases it might even be necessary to deploy local relays. Both of which require expensive trial-and-error experiments if no accurate coverage modelling can be applied.  
+Coverage and capacity modelling is an essential element for deploying any \gls{nbiot} sensor, and an even more critical aspect when deploying sensors in hard to reach areas, especially from the perspective of the \gls{mno}, but also the consumer and enterprise developing the sensors. For instance, as visualized in Fig. \ref{fig:outdoor_to_indoor_approach} some sensors might require displacement to ensure a reliable connection, and in some cases, it might even be necessary to deploy local relays offering \gls{i2i} propagation. Both of which require expensive trial-and-error experiments if no accurate coverage modelling can be applied.  
 
 \subsection{Outdoor-To-Indoor empirical models}
-Both \gls{3gpp} and \gls{itu} have in the latest technical reports, concerning coverage models and path loss estimation, supplied with so-called \gls{o2i} models. The models provide with terms for attenuation associated with 1) penetration losses and 2) the distance inside the building. The documents are focused on indoor scenarios related to regular buildings. E.g. distances indoor define the distance to the outer most wall that seperates the receiver antenna from the transmitter antenna. More specifically, the losses are decomposed as followings
+Both \gls{3gpp} and \gls{itu} have in the latest technical reports, concerning coverage models and path loss estimation, supplied with so-called \gls{o2i} models. The models provide with terms for attenuation associated with 1) penetration losses and 2) the distance inside the building. The documents are focused on indoor scenarios related to regular buildings. E.g. distances indoor define the distance to the outermost wall that separates the receiver antenna from the transmitter antenna. More specifically, the losses are composed as followings
 
 \begin{equation}\label{eq:o2i_pl}
     PL_{O2I} = PL_{b} + PL_{tw} + PL_{in}
 \end{equation}
 
-Where $PL_{b}$ is the basic outdoor path loss as denoted by the \uma{A} and \uma{B} models as described in Section \ref{sec:empirical_path_loss}. The terms, $PL_{tw}$ and $PL_{in}$ are losses associated with building penetration and the distance indoor respectively. The losses associated with the penetration, are composed into a low-loss and high-loss model, both being frequency dependent, but constant with distance.  On the other hand losses related to indoor distance ($PL_{in}$) are dependent on an indoor distance parameter as follows
+Where $PL_{b}$ is the basic outdoor path loss as denoted by the \uma{A} and \uma{B} models as described in Section \ref{sec:empirical_path_loss}. The terms, $PL_{tw}$ and $PL_{in}$ are losses associated with building penetration and the distance indoor respectively. The losses associated with the penetration, are composed into a low-loss and high-loss model, both being frequency-dependent, but constant with distance.  On the other hand, losses related to indoor distance ($PL_{in}$) are dependent on an indoor distance parameter as follows.
 
 \begin{equation}\label{eq:o2i_pl_in}
     PL_{in} = 0.5 \cdot d_{in,2d}
 \end{equation}
 
-Where $d_{in,2d}$ denotes the distance indoor, i.e. the distance to the outer most wall in the direction of the transmitter. The entirety of Eq. (\ref{eq:o2i_pl}) are undefined for indoor scenarios different from level 0, 1 and 2. Furthermore, the indoor distance metrics are unspecified for underground positions. 
+Where $d_{in,2d}$ denotes the distance indoor, i.e. the distance to the outermost wall in the direction of the transmitter. The entirety of Eq. (\ref{eq:o2i_pl}) are undefined for indoor scenarios different from level 0, 1 and 2. Furthermore, the indoor distance metrics are unspecified for underground positions. 
 
 The remainder of this chapter contains an experimental investigation for deep indoor path loss modelling. More specifically, evaluating current models and the performance for scenarios that are different than regular buildings, i.e. \gls{o2i} where the indoor attenuation is partially underground. 
 
 \subsection{Deep Indoor attenuation}
-Radio propagation modelling for tunnels have been subject to significant research due to the many radio applications residing in tunnels. For instance, railway operators require reliable communication networks to ensure safety and effective maintenance. A comprehensive survey of radio propagation modeling for tunnels can be found in \cite{Hrovat2014ATunnels}. The paper discuss the use of ray-tracing models and empirical models (among others) and the resulting predictive accuracy. It is found that the geometry of the tunnel system, especially the cross-sectional shape is significantly important for estimation of radio propagation. It is found that ray-tracing models that utilize such cross-sectional geometry information perform better in both NLOS and LOS situations. However, this is not the case for empirical models that are found to be lackluster in predictive performance when predicting the NLOS state. Finally, it should be said that the scope of the research generally considers transmission within tunnel systems. In other words, the unreliable transmission characteristics of \gls{o2i} pushes mobile operators to install relays and base stations inside the tunnel systems making radio propagation models inside tunnels important. The purpose of the study is not to enrich literature with improved empirical models for radio propagation in tunnel systems. It is however the objective to investigate how current empirical models preform for \gls{nbiot} technologies in a \gls{o2i} transmission scenario.
+Radio propagation modelling for tunnels has been subject to significant research due to the many radio applications residing in tunnels. For instance, railway operators require reliable communication networks to ensure safety and effective maintenance. A comprehensive survey of radio propagation modelling for tunnels can be found in \cite{Hrovat2014ATunnels}. The paper discusses the use of ray-tracing models and empirical models (among others) and the resulting predictive accuracy. It is found that the geometry of the tunnel system, especially the cross-sectional shape, is significantly essential for estimation of radio propagation. It is found that ray-tracing models that utilize such cross-sectional geometry information perform better in both NLOS and LOS situations. However, this is not the case for empirical models that are found to be lacklustre in predictive performance when predicting the NLOS state. Finally, it should be said that the scope of the research generally considers transmission within tunnel systems. In other words, the unreliable transmission characteristics of \gls{o2i} push \acrlong{mno} to install relays and base stations inside the tunnel systems making radio propagation models inside tunnels relevant. The purpose of the study is not to enrich literature with improved empirical models for radio propagation in tunnel systems. It is, however, the objective to investigate how current empirical models perform for \gls{nbiot} technologies in a \gls{o2i} transmission scenario.
 
 \section{Deep Indoor Measurements}
-Getting positions indoor is not a trivial task, as common solutions using \gls{gnss} are unavailable. Techniques for inferring positions indoor using radio waves with high accuracy have been documented in literature \cite{Nuaimi2011}, however, such solutions require complicated infrastructure and post-processing. In this particular case, the unique tunnel system is scanned using high-resolution LIDAR. The availability of such data enables accurate indoor positioning, and advanced feature engineering for investigating indoor attenuation and parameters related hereof.  Initial evaluations of deep indoor attenuation were completed in \cite{Malarski2019InvestigationAttenuation}, using a simplistic metric of indoor distance. It shows a inaccuracy of using $PL_{in}$ in deep indoor scenarios, but is subject to additional measurements and research. The availability of the LIDAR data increases the accuracy of the study and the resulting indoor distance features. 
+Getting positions indoor is not a trivial task, as common solutions using \gls{gnss} are unavailable. Techniques for inferring positions indoor using radio waves with high accuracy have been documented in literature \cite{Nuaimi2011}. However, such solutions require complicated infrastructure and post-processing. In this particular case, the unique tunnel system is scanned using high-resolution LIDAR. The availability of such data enables accurate indoor positioning and advanced feature engineering for investigating indoor attenuation and parameters related hereof.  Initial evaluations of deep indoor attenuation were completed in \cite{Malarski2019InvestigationAttenuation}, using a simplistic metric of indoor distance. It shows an inaccuracy of using $PL_{in}$ in deep indoor scenarios but is subject to additional measurements and research. The availability of the LIDAR data increases the accuracy of the study and the resulting indoor distance features. 
 
 
 \subsection{Tunnel system}
-The tunnels span the entirety of the Technical University of Denmark campus providing a unique location for long-distance deep indoor measurements. The layout, and the measurements conducted are visualized in Fig. \ref{fig:underground_tunnel_system}.
+The tunnels span the entirety of the Technical University of Denmark campus, providing a unique location for long-distance deep indoor measurements. The layout and measurements conducted are visualized in Fig. \ref{fig:underground_tunnel_system}.
 
 \begin{figure}
     \centering
@@ -61,8 +61,10 @@ The tunnels span the entirety of the Technical University of Denmark campus prov
 
 
 
+
+
 \subsection{LIDAR}
-A complete LIDAR scan of the tunnel system have been conducted with a very granular resolution of $> 1$ cm. The LIDAR data provides with a set of $3$D coordinates $(x_i, y_i, z_i)$ for the entirety of the tunnel system. Accumulating to $\approx 20$ GB of files, with approximately $100$ million coordinate pairs. Custom LIDAR scripts have been written to process the data. The was largely enabled by libraries such as LasPy \cite{Grantbrown/laspy:1.0-1.4.} for LIDAR file processing, and \cite{alan_d_snow_2020_3714221} for coordinate conversion. Examples of the point cloud, and the data can be seen in Fig. \ref{fig:tunnel_cross_section} and Fig. \ref{fig:tunnel_3d_view}.
+A complete LIDAR scan of the tunnel system has been conducted with a very granular resolution of $> 1$ cm. The LIDAR data provides with a set of $3$D coordinates $(x_i, y_i, z_i)$ for the entirety of the tunnel system, accumulating to $\approx 20$ GB of files, with approximately $100$ million coordinate pairs. Custom LIDAR scripts have been written to process the data. The was largely enabled by libraries such as LasPy \cite{Grantbrown/laspy:1.0-1.4.} for LIDAR file processing, and \cite{alan_d_snow_2020_3714221} for coordinate conversion. Examples of the point cloud and the data can be seen in Fig. \ref{fig:tunnel_cross_section} and Fig. \ref{fig:tunnel_3d_view}.
 
 \begin{figure*}
     \centering
@@ -73,7 +75,7 @@ A complete LIDAR scan of the tunnel system have been conducted with a very granu
     \vspace{2em}
 \end{figure*}
 
-The LIDAR coordinate pairs are given in a coordinate systems related to that of the DTU campus termed DTULOK. A procedure for converting to the UTM32 system is provided along with the dataset, consisting of a so-called Helmert transformation. 
+The LIDAR coordinate pairs are given in a coordinate system related to that of the DTU campus termed DTULOK. A procedure for converting to the UTM32 system is supplied along with the dataset, consisting of a so-called Helmert transformation. 
 
 
 \begin{figure}
@@ -110,14 +112,13 @@ The setup consists of a \gls{r_and_s} TSMW Network Tester \cite{Manual2017} (as 
 \end{itemize}
 
 
-The \gls{iq} samples were taken utilizing a low-pass filter centered around the \gls{nbiot} operating carrier frequency given the bandwidth of a single narrowband of $180$ kHz. An overview can be found in Table \ref{tab:measurement_configuration}. 
+The \gls{iq} samples were taken utilizing a low-pass filter centred around the \gls{nbiot} operating carrier frequency given the bandwidth of a single narrowband of $180$ kHz. An overview can be found in Table \ref{tab:measurement_configuration}. 
 
-The \gls{rsrp} measured was averaged over all samples taken at each measurement position to average out any time-variant impairments that may have influenced the \gls{rsrp} at time of measurements.. 
-
+The \gls{rsrp} measured was averaged over all samples taken at each measurement position to average out any time-variant impairments that may have influenced the \gls{rsrp} at time of measurements. 
 
 
 \subsection{Indoor positioning}
-In order to utilize the LIDAR scan for indoor positioning, a procedure was developed. It can be summarized as the following step-wise procedure. It consists of the following steps:
+A method was developed for inferring indoor positioning from the LIDAR scan. It can be summarized as the following step-wise procedure. It consists of the following steps:
 
 \begin{enumerate}
     \item Identify start and end positions of measurement campaigns within the $3$D point cloud.
@@ -126,14 +127,15 @@ In order to utilize the LIDAR scan for indoor positioning, a procedure was devel
     \item Convert local coordinate system (DTULOK) to UTM32/WSG84
 \end{enumerate}
 
-Accurate identification of the start and end positions within the point cloud (step 1) is paramount to high accuracy for the remainder of the measurement positions. In order to achieve accurate identification, the step was split into two procedures, a) ensuring the start and end positions was well documented with pictures and can visually be identified using e.g. a large pipe or other significant characteristics of the environment. b) an interactive program was created to narrow down such characteristics within the point cloud. An example can be seen on Fig. \ref{fig:tunnel_3d_view}. 
+Accurate identification of the start and end positions within the point cloud (step 1) is paramount to high accuracy for the remainder of the measurement positions. The step was split into two procedures for achieving accurate identification, a) ensuring the start and end positions were well documented with pictures and can visually be identified using, e.g. a large pipe or other significant characteristics of the environment. b) an interactive program was created to narrow down such characteristics within the point cloud. An example can be seen in Fig. \ref{fig:tunnel_3d_view}. 
 
-The interpolation (step 2) assumes equidistant measurements. It is fair to assume some errors may introduce themselves during the measurements, however, by ensuring the total distance between the start and end position is divided into $N$ segments, the overall equidistant error is averaged out.
+The interpolation (step 2) assumes equidistant measurements. It is fair to expect some errors may introduce themselves during the measurements, however, by ensuring the total distance between the start and end position is divided into $N$ segments, the overall equidistant error is averaged out.
 
-The look-up of coordinates (step 3) consisted of computing the distance (euclidean) to LIDAR coordinate pairs. The closest point within the point cloud was then extracted as the coordinate. Due to the high resolution, on average the closest point was within a margin of $1$ cm.
+The look-up of coordinates (step 3) consisted of computing the distance (euclidean) to LIDAR coordinate pairs. The closest point within the point cloud was then extracted as the coordinate. Due to the high resolution, on average, the nearest data point was within a margin of $1$ cm.
 
 The LIDAR data operates within a coordinate system localized to the area of measurements. A conversion (step 4)  to more generic coordinate systems such as UTM32 and WSG84 (Latitude, Longitude) \cite{alan_d_snow_2020_3714221} completed the indoor positioning procedure. 
 
+%% Here
 
 \section{Evaluation of indoor KPIs}
 The literature for indoor attenuation states that 1) tunnel geometry is considered the main influence on attenuation for propagation in tunnels, and 2) current models for \gls{o2i} use a simple indoor distance metric. Having access to the high resolution LIDAR data enables the engineering for indoor distance metrics with high accuracy. 
