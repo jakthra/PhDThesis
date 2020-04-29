@@ -192,7 +192,7 @@
     [4em]% distance from left margin
     {}% above (global formatting of entry)
     {\contentslabel{4em}}% before w/ label (label = ``Chapter 1'')
-    {\hspace{3em}}% before w/o label
+    {}% before w/o label
     {\hfill\thecontentspage}% filler and page (leaders and page num)
     [\vspace*{0.5\baselineskip}]% after
 
@@ -200,7 +200,7 @@
     [4.5em]% distance from left margin
     {}% above (global formatting of entry)
     {\contentslabel{4em}\textit}% before w/ label (label = ``Chapter 1'')
-    {\hspace{3em}\textit}% before w/o label
+    {}% before w/o label
     {\hfill\thecontentspage}% filler and page (leaders and page num)
     [\vspace*{0.5\baselineskip}]% after
 %%%% End additional code by Kevin Godby
@@ -323,17 +323,19 @@ Dedicated to my mother (Hi, Mom!).
 \input{chapters/part_conclusion/conclusion}
 
 
+{\footnotesize
+\printbibliography[heading=bibintoc]}
 
 
 \epigraphhead[350]{}
-\part{Appendix}
+\part{Appendicies}
 \appendix
 \input{appendix/drive_test_study.tex}
 \input{appendix/ray_tracing_model.tex}
 \input{appendix/hyper_parameter_scan}
 \input{appendix/submitted_papers.tex}
 
-%%
+%%\backmatter
 % The back matter contains appendices, bibliographies, indices, glossaries, etc.
 
 
@@ -342,13 +344,11 @@ Dedicated to my mother (Hi, Mom!).
 
 
 
-\backmatter
 
 
 
 %\bibliographystyle{plainnat}
-{\footnotesize
-\printbibliography}
+
 
 
 %\printindex
