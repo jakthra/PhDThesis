@@ -33,7 +33,7 @@ Total        & $125900$  &      &                     \\ \bottomrule
 \caption{Additional drive test data is available for training and testing consisting of various transmission frequencies.}\label{tab:drive_test_data_total}
 \end{table*}
 
-\subsection{Methodology}
+\subsection{Methodology}\label{subsec:osm_methodology}
 
 Upon initial prototyping of the proposed method, it was found that the general features of \gls{gnss} positions, e.g. latitude and longitude coordinates caused severe extrapolation issues. More specifically, the model attempted to interpolate between the coordinates. The importance of the coordinates to the prediction of \gls{rsrp} caused the model to learn latent features of spatial importance. When evaluating the methodology in a different region (significant difference in latitude and longitude coordinates), the trained model would then provide a wrong interpretation of the spatial features by interpolating between coordinates. For this reason, a few changes to the formalized of the required engineered features were made. More specifically this resulted in
 
