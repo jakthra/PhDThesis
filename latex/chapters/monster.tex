@@ -49,9 +49,6 @@ In short and brief terms, \gls{son} is the automatization and self-configuration
 \acrlong{son} require intelligent methodologies for effectively providing with the much-needed intelligence. Learning methodologies, as provided by \acrfull{ml} is encompassed to fulfil these requirements. A comprehensive study of \gls{ml} applied for \gls{son} can be found in \cite{Klaine2017ANetworks}. 
 
 In any case, \gls{son} features or not, the optimisation of mobile communication systems is effectively also a result of obtaining the necessary data representative of the deployment, or in the case of the planning phase to-be deployment. Getting data can either be done through measurements, which is limited to deployed networks, or simulations. Simulations have over the recent years sparked an increasing amount of research papers and is a core technique for the optimisation of cellular networks and research hereof. Regardless, radio measurements is a key and necessary element for the performance evaluation of mobile networks and even more so with increased network complexity. Obtaining such measurements can be done with regular and frequent \emph{drive tests}. However, as the complexity of these systems increases the drive testing in itself becomes increasingly expensive. 
-
-\subsection{Drive testing}\label{sec:drive_testing}
-
 \begin{figure}
     \centering
     \includegraphics[width=.5\textwidth]{chapters/figures/drive_test_illustration.eps}
@@ -59,7 +56,7 @@ In any case, \gls{son} features or not, the optimisation of mobile communication
     \label{fig:my_label}
 \end{figure}
 
-
+\subsection{Drive testing}\label{sec:drive_testing}
 Drive testing consists simply of attaching an antenna on top of a vehicle and driving around areas of deployment. Examples of such data sets can be found in Appendix \ref{app:drive_test_study_2017} and \ref{app_drive_test_study_2020}. Obtaining drive test measurements is a costly affair as deployment regions can cover large or hard-to-reach areas. Optimising the drive test procedure have been attempted by utilising hardware in the loop and 3D acceleration \cite{Charitos2017} with promising results. However, the default solution is to practically fit a car with the right equipment and drive around. Drivable roads effectively limit the granularity. Measurement solutions exist for doing it on foot and are useful in non-drivable areas and indoor coverage situations \cite{ROMESmanual}. 
 
 \subsection{\glspl{kpi}}
@@ -116,9 +113,9 @@ The applications of channel models are expected not to be limited to the plannin
 
 
 \section{Is Deep Learning applicable to Mobile Communication systems?}
-\gls{ml} has been hailed to be a key enabler in future mobile communication systems due to the capabilities of learning complex mapping functions. \gls{ml} is capable of learning complex functions through data observations that may otherwise be challenging to engineer. As discussed through the majority of this chapter, future mobile communication systems consist of many complex interactions and sub-systems. Therefore \gls{ml}-based solutions are regarded as an essential element in future cellular systems \cite{Li2017IntelligentIntelligence, Klaine2017ANetworks}. 
+\gls{ml} and thus \gls{dl} has been hailed to be a key enabler in future mobile communication systems due to the capabilities of learning complex mapping functions. \gls{dl} is capable of learning complex functions through data observations that may otherwise be challenging to engineer. As discussed through the majority of this chapter, future mobile communication systems consist of many complex interactions and sub-systems. Therefore \gls{dl}-based solutions are regarded as an essential element in future cellular systems \cite{Li2017IntelligentIntelligence, Klaine2017ANetworks}. 
  
-The specific capabilities of \gls{ml}-based solutions have been shown in recent literature. For instance, in \cite{OShea2017, Dorner2018, Aoudia2018} the authors show how a \gls{dl} model (a subfield of \gls{ml}) can be trained to learn the entire physical layer of a wireless communication system, in what they term \emph{end-to-end} learning. The adaptive model is capable of learning a full transmitter and receiver implementation yielded by the conditions of a channel model using a \gls{nn}. In other words, all sub-systems in a regular \gls{ofdm}-based receiver and transmitter can be learned by obtaining the right measurements. While this may not be feasible for practical systems, it shows the use case of \gls{dl} models in wireless communication system design.
+The specific capabilities of \gls{dl}-based solutions have been shown in recent literature. For instance, in \cite{OShea2017, Dorner2018, Aoudia2018} the authors show how a \gls{dl} model (a subfield of \gls{ml}) can be trained to learn the entire physical layer of a wireless communication system, in what they term \emph{end-to-end} learning. The adaptive model is capable of learning a full transmitter and receiver implementation yielded by the conditions of a channel model using a \gls{nn}. In other words, all sub-systems in a regular \gls{ofdm}-based receiver and transmitter can be learned by obtaining the right measurements. While this may not be feasible for practical systems, it shows the use case of \gls{dl} models in wireless communication system design.
 
 
 A massive survey paper discussing the use cases of \gls{ml} in wireless network systems can be found in \cite{Zappone2019}. The authors discuss \emph{\gls{ai}-based Wireless Networks} that is driven entirely on data. The authors discuss the future of wireless networks and argue that these networks will consist of extreme complexity which means traditional approaches to network design and management are ineffective or as they print it: \emph{no longer adequate}. This particular point is the point that this chapter is trying to underline and define from the perspective of mobile communication systems. 

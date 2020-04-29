@@ -1,4 +1,4 @@
-\section{Reduced image complexity (v3)}
+\section{Reduced image complexity (v3)}\label{sec:osm_v3}
 The implication of utilizing both satellite images and expert knowledge (in terms of a path loss model) requires further investigation and explorations. In particular, it is of interest to effectively reduce the model complexity to enable a more transparent inference of the prediction capability. Additionally, and possibly, more importantly, it is of great interest to validate the approach by using inherently different data sources. 
 
 In the work \cite{Thrane2020DeepKnowledge}, the proposed approach is validated using simplified geographical images and additional drive test data. More specifically, this includes the use of so-called \emph{OpenStreetMap} data to supply the needed information for the used images. Furthermore, to enable generalization and interpolation between inherently different data sources, some changes were conducted to the features. The approach of this is visualized in Fig. \ref{fig:version3_architecture_figure}.
@@ -6,7 +6,7 @@ In the work \cite{Thrane2020DeepKnowledge}, the proposed approach is validated u
 \begin{figure*}
     \centering
     \includegraphics{chapters/part_pathloss/osm_images_paper/figures/version3_architecture_figure.eps}
-    \caption{Architecture is set to utilize images provided by OpenStreetmap instead of satellite images}
+    \caption{Architecture is set to utilize images provided by \gls{osm} instead of satellite images}
     \label{fig:version3_architecture_figure}
 \end{figure*}
 
@@ -15,7 +15,7 @@ In the work \cite{Thrane2020DeepKnowledge}, the proposed approach is validated u
 
 \subsection{German measurements}
 
-The experimental measurements of the previously used drive test data  (Appendix \ref{app:drive_test_study_2017}, \cite{1xf4-eg98-19}) is appended with data from Dortmund, Germany \cite{SliwaEmpiricalNetworks}. The dataset contains measurements from multiple \glspl{mno} in different propagation scenarios at different operating frequencies. The essential characteristics can be seen in Table \ref{tab:drive_test_data_total}. The fundamental characteristics of the data allow for engineering the relevant features required for applying the proposed \gls{dl} model.
+The experimental measurements of the previously used drive test data (See appendix \ref{app:drive_test_study_2017}, \cite{1xf4-eg98-19}) is appended with data from Dortmund, Germany \cite{SliwaEmpiricalNetworks}. The dataset contains measurements from multiple \glspl{mno} in different propagation scenarios at different operating frequencies. The essential characteristics can be seen in Table \ref{tab:drive_test_data_total}. The fundamental characteristics of the data allow for engineering the relevant features required for applying the proposed \gls{dl} model.
 
 \begin{table*}[h]
 \footnotesize

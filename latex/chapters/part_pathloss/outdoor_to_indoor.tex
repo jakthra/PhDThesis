@@ -47,26 +47,20 @@ Radio propagation modelling for tunnels has been subject to significant research
 
 \section{Deep-indoor Measurements}
 Getting positions indoor is not a trivial task, as common solutions using \gls{gnss} are unavailable. Techniques for inferring positions indoor using radio waves with high accuracy have been documented in literature \cite{Nuaimi2011}. However, such solutions require complicated infrastructure and post-processing. In this particular case, the unique tunnel system is scanned using high-resolution LIDAR. The availability of such data enables accurate indoor positioning and advanced feature engineering for investigating indoor attenuation and parameters related hereof.  Initial evaluations of deep-indoor attenuation were completed in \cite{Malarski2019InvestigationAttenuation}, using a simplistic metric of indoor distance. It shows an inaccuracy of using $PL_{in}$ in deep-indoor scenarios but is subject to additional measurements and research. The availability of the LIDAR data increases the accuracy of the study and the resulting indoor distance features. 
-
-
-\subsection{Tunnel system}
-The tunnels span the entirety of the Technical University of Denmark campus, providing a unique location for long-distance deep-indoor measurements. The layout and measurements conducted are visualized in Fig. \ref{fig:underground_tunnel_system}.
-
-\begin{figure}
+\begin{figure}[thbp]
     \centering
     \includegraphics[width=0.5\textwidth]{chapters/part_pathloss/figures/outdoor_to_indoor/Complete_tunnel_system.eps}
     \caption{The underground tunnels of The Technical University of Denmark campus. The areas of measurements are highlighted.}
     \label{fig:underground_tunnel_system}
 \end{figure}
 
-
-
-
+\subsection{Tunnel system}
+The tunnels span the entirety of the Technical University of Denmark campus, providing a unique location for long-distance deep-indoor measurements. The layout and measurements conducted are visualized in Fig. \ref{fig:underground_tunnel_system}.
 
 \subsection{LIDAR}
 A complete LIDAR scan of the tunnel system has been conducted with a very granular resolution of $> 1$ cm. The LIDAR data provides with a set of $3$D coordinates $(x_i, y_i, z_i)$ for the entirety of the tunnel system, accumulating to $\approx 20$ GB of files, with approximately $100$ million coordinate pairs. Custom LIDAR scripts have been written to process the data. The was largely enabled by libraries such as LasPy \cite{Grantbrown/laspy:1.0-1.4.} for LIDAR file processing, and \cite{alan_d_snow_2020_3714221} for coordinate conversion. Examples of the point cloud and the data can be seen in Fig. \ref{fig:tunnel_cross_section} and Fig. \ref{fig:tunnel_3d_view}.
 
-\begin{figure*}
+\begin{figure*}[thbp]
     \centering
     \caption{Cross-sections of a tunnel corridor on the xz-plane. Details of pipes, ventilation and other indoor features are visible.}\label{fig:tunnel_cross_section}
     \subfloat[]{\includegraphics[width=0.3\textwidth]{chapters/part_pathloss/figures/outdoor_to_indoor/crossection_1.png}}
@@ -88,22 +82,6 @@ The LIDAR coordinate pairs are given in a coordinate system related to that of t
 
 \subsection{Setup}
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{@{}l|l@{}}
-\toprule
-\# of measurement points       & $895$             \\ \midrule
-TSMW/UE measurements per point & $1e6/10$          \\ \midrule
-Operating frequency            & $820.5$ MHz       \\ \midrule
-Bandwidth                      & $180$ kHz         \\ \midrule
-Noise figure (TX/RX)           & $5$ dB/$3$ dB     \\ \midrule
-TX power                       & $46$ dBm          \\ \midrule
-Receiver antenna position      & Vertical          \\ \midrule
-TX/RX antenna gain             & $5$ dBi/$5.8$ dBi \\ \bottomrule
-\end{tabular}
-\caption{Measurement configuration and parameters}\label{tab:measurement_configuration}
-\end{table}
-
 The setup consists of a \gls{r_and_s} TSMW Network Tester \cite{Manual2017} (as also utilized for drive-testing, see Appendix \ref{app:drive_test_study_2017} and \ref{app_drive_test_study_2020}). And a \gls{nbiot} device \cite{sodaq}. Antennas for both the TSMW, and the \gls{nbiot} device was mounted vertically on a trolley. Utilizing a laptop with a set of parallel measurement scripts, measurements from both the TSMW and \gls{nbiot} device were conducted for each measurement position. More specifically, a measurement was taken with constant intervals for individual corridors. This results in $N$ measurements for each corridor, ideally equidistant spaced with $1$ to $2$ m. For each decided measurement position, the following measurements were taken
 
 \begin{itemize}
@@ -116,6 +94,23 @@ The \gls{iq} samples were taken utilizing a low-pass filter centred around the \
 
 The \gls{rsrp} measured was averaged over all samples taken at each measurement position to average out any time-variant impairments that may have influenced the \gls{rsrp} at time of measurements. 
 
+\begin{table}[htbp]
+    \centering
+    \footnotesize{
+    \begin{tabular}{@{}l|l@{}}
+    \toprule
+    \# of measurement points       & $895$             \\ \midrule
+    TSMW/UE measurements per point & $1e6/10$          \\ \midrule
+    Operating frequency            & $820.5$ MHz       \\ \midrule
+    Bandwidth                      & $180$ kHz         \\ \midrule
+    Noise figure (TX/RX)           & $5$ dB/$3$ dB     \\ \midrule
+    TX power                       & $46$ dBm          \\ \midrule
+    Receiver antenna position      & Vertical          \\ \midrule
+    TX/RX antenna gain             & $5$ dBi/$5.8$ dBi \\ \bottomrule
+    \end{tabular}
+    \caption{Measurement configuration and parameters}\label{tab:measurement_configuration}
+    }
+\end{table}
 
 \subsection{Indoor positioning}
 A method was developed for inferring indoor positioning from the LIDAR scan. It can be summarized as the following step-wise procedure. It consists of the following steps:

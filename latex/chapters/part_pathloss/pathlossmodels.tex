@@ -12,19 +12,7 @@ also known as \emph{slow} fading, is the product of obstacles shadowing the sign
 also known as \emph{fast} fading, or just \emph{fading} \cite{Rappaport:2001:WCP:559977} is the effect of interference between several verions of the transmitted wave arriving shifted in time. This is caused by obstacles in the propagation environment causing reflections thus the waves arrive from many directions and with different propagation delays. A large quantity of factors influence small-scale fading such as multipath propagation, the speed of the mobile, the speed of surrounding objects and the bandwidth of the signal. A comprehensive description of small-scale fading can be found in \cite{Rappaport:2001:WCP:559977}. 
 
 
-
 \section{Established methodologies for received power estimation}
-
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{chapters/part_pathloss/figures/channelmodel_tree.eps}
-    \caption{Two \emph{families} of channel models have been the default approach for modelling the wireless transmission impairments. Each of the families, statistical and geometric deal with both deterministic and stochastic approaches. Recently hybrid methods have gained attention for improving accuracy while keeping valuable statistical properties.}
-    \label{fig:channel_models}
-\end{figure}
-
-
 The received power is determined not only by the impairments and path losses associated with the wireless channel. Several other items have an impact on the final received power. Modelling the final received power is commonly done through the use of so-called link budgets. The link budget is an essential part of designing reliable communication systems and can give insights in the needed requirements of the hardware composing the communication system \cite{Molisch2007}.
 
 
@@ -35,6 +23,13 @@ The received power is determined not only by the impairments and path losses ass
 Here $P_{rx}$ is the received power, $P_{tx}$ is the transmitted power, $G_{tx}$ and $L_{tx}$ are gains and losses associated with the transmitter. $G_{rx}$ and $L_{rx}$ are gains and losses associated with the receiver and finally, $L_{PL}$ are the path losses. The complete estimation of received power consists thus of a multitude of terms. In most cases gains and losses of both the receiver and transmitter components can be quite accurately approximated through calibration procedures  \cite{Molisch2007}. The above link budget is rather simplified for use in mobile communication systems and should contain many more parameters to accurately predict received power. In any case the most attenuation of the link budget is associated to path losses, thus predicting and estimating accurate path losses is the most essential element. Unfortunately the task of estimating accurate path losses are either 1) computational complex to ensure high accuracy or 2) computational fast but at the cost of inaccurate estimations. Models for obtaining path loss estimations are from hereon termed \emph{wireless channel models}. However, it is important to note that wireless channel models must consider not only power but also delays and other components. A complete overview of wireless channel models will not be given in this dissertation, and the reader is refereed the content of common textbooks such as \cite{Tse2005FundamentalsCommunication}.
 
 Obtaining approximations of $L_{PL}$ is challenging and many approaches for doing so have been developed over the existence of mobile communication systems. Channel models for wireless transmission have been subject to much research and are seperated into two fundamental \emph{families} of channel models. Such families are either considered \textbf{statistical} or \textbf{geometric}. This chapter will outline the purpose and properties of various existing channel modelling methodologies. This is necessary in order to motivate and visualize where learning methods could improve the current methodologies.
+
+\begin{figure}[thbp]
+    \centering
+    \includegraphics[width=\textwidth]{chapters/part_pathloss/figures/channelmodel_tree.eps}
+    \caption{Two \emph{families} of channel models have been the default approach for modelling the wireless transmission impairments. Each of the families, statistical and geometric deal with both deterministic and stochastic approaches. Recently hybrid methods have gained attention for improving accuracy while keeping valuable statistical properties.}
+    \label{fig:channel_models}
+\end{figure}
 
 
 \subsection{Statistical}
@@ -294,7 +289,7 @@ The terrain information can in most cases be obtained using survey data, which i
     \label{fig:lidar_data_example}
 \end{figure}
 
-Even with this data, a significant effort is required to convert it to independent height of buildings. The procedure is three-fold. Firstly, it requires knowledge of building locations and their respective shapes. Secondly, assumptions of roofing and height must be applied for each building. Third, and lastly, the effective height of the buildings must be extracted. This was performed by utilizing the \gls{lidar} scans to effectively sample the height of buildings. The buildings were identified using zonal descriptions obtained through OpenStreepMap \cite{OpenstreetMapWiki}. The mean of all samples within each building footprint (polygons) effectively provided an altitude measurement for each building, and thus a 3D polygon.
+Even with this data, a significant effort is required to convert it to independent height of buildings. The procedure is three-fold. Firstly, it requires knowledge of building locations and their respective shapes. Secondly, assumptions of roofing and height must be applied for each building. Third, and lastly, the effective height of the buildings must be extracted. This was performed by utilizing the \gls{lidar} scans to effectively sample the height of buildings. The buildings were identified using zonal descriptions obtained through \gls{osm} \cite{OpenstreetMapWiki}. The mean of all samples within each building footprint (polygons) effectively provided an altitude measurement for each building, and thus a 3D polygon.
 
 The exported file contains polygons, thus buildings and their shape with coordinates and the effective height of each polygon. The effective height is computed as the mean of $N$ number of \gls{lidar} measurements within the building footprints. Thus, if a roof is not flat a significant error to the building height is obtained. Thankfully, most buildings at DTU campus (if not all) have flat roofing. The file can be directly imported into Remcom Wireless Insite where further modelling of antennas are required. Additionally, and possibly even more import, is the definition of materials - this is where the model starts to become increasingly complex. A detailed description of the ray-tracing model and a necessary calibration study can be found in Appendix \ref{app:ray_tracing_model}.
 
@@ -308,7 +303,7 @@ The result of a comparison study can be found in the published work \cite{Thrane
 
 \subsection{Results}
 
-\begin{figure*}
+\begin{figure*}[thbp]
     \centering
     \includegraphics[width=0.48\textwidth]{chapters/part_pathloss/figures/results/811MHz_RSRP.eps}
     \includegraphics[width=0.48\textwidth]{chapters/part_pathloss/figures/results/2630MHz_RSRP.eps}

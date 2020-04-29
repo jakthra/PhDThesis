@@ -80,9 +80,6 @@ Due to the configuration of $\mathbf{G}$, $\mathbf{\hat{G}}$ is sparse and thus 
 
 We seek to obtain the best set of weights, $W_Z$ that minimizes the mean squared error between the sparse \gls{srs} sequence and the actual frequency response of the channel. To do this, we construct a deep convolutional neural network. The intuition behind the architecture is to compress the sparse sequence and extract relevant information from it. A decompressor type output structure is then tasked with learning the right "reconstruction" from a latent and compressed layer. This model structure is similar to the hour-glass structure as used in state-of-the-art image processing models such as \cite{DeepPrior}. 
 
-\subsection{Data foundation}
-The problem is formalized as a supervised problem where the channel conditions are the target values. The objective of the deep learning model is then to approximate the channel matrix $H$ using a sparse and noisy received \gls{srs} sequence $\hat{G}$. An example of a transmitted \gls{srs} sequence and the resulting received \gls{srs} sequence can be seen in Fig. \ref{fig:srs_sequence_example}. 
-
 \begin{figure*}
     \centering
     \subfloat[Transmitted \gls{srs} sequence]{\includegraphics[width=0.33\textwidth]{chapters/part_uplink/figures/G.eps}}
@@ -92,6 +89,9 @@ The problem is formalized as a supervised problem where the channel conditions a
     \caption{The \gls{srs} sequence essentially serves as a \emph{mask} for the channel conditions resulting in a sparse matrix of received channel coefficients.}
     \label{fig:srs_sequence_example}
 \end{figure*}
+
+\subsection{Data foundation}
+The problem is formalized as a supervised problem where the channel conditions are the target values. The objective of the deep learning model is then to approximate the channel matrix $H$ using a sparse and noisy received \gls{srs} sequence $\hat{G}$. An example of a transmitted \gls{srs} sequence and the resulting received \gls{srs} sequence can be seen in Fig. \ref{fig:srs_sequence_example}. 
 
 A set of channel conditions are emulated using the \gls{tdl} model as specified by $3$GPP and ITU \cite{3GPP38901, ITU2412} and as described in Section \ref{sec:stochastic_channel_model}. The implementation of both the channel model and the \gls{srs} sequence is detailed in Section \ref{ch:monster}. The \gls{srs} sequence is generated using several parameters, some related to bandwidth, some related to the periodicity. A brief introduction can be found in Section \ref{sec:srs_sequence_definition}. A set of channel conditions and \gls{srs} sequences are simulated. The specific parameters can be found in Table \ref{tab:sim_param_channel_est}. Several parameters are noted in terms of vectors. The vectors note that the training dataset is composed of several varieties of both periods, and \gls{srs} sequences. More specifically, the dataset is composed of the configurations as depicted in Fig. \ref{fig:data_channel_estimation}. For a total of $6000$ \gls{lte} frames, the channel conditions were emulated using the \gls{tdl} model. Two separate datasets were emulated with different seeds but the same characteristics, composing a test and training set. 
 
@@ -187,10 +187,11 @@ The full implementation of the model can be found in \cite{Thrane2020RepositoryL
 A grid search was utilized to discover the best performing hyper-parameters. The parameters for the convolutional layers can be seen in Table \ref{tab:channel_estimation_hyperparameters_conv}. The remainder of the hyper-parameters can be seen in Table. \ref{tab:channel_estimation_hyperparameters}
 
 
-\begin{table*}[]
+\begin{table}[]
+\footnotesize{
 \begin{tabular}{@{}lllllll@{}}
 \toprule
-Layer/Parameter & Kernel Size & Padding & Stride & Filters & Leaky ReLU & Max Pooling \\ \midrule
+ & Kernel Size & Padding & Stride & Filters & Leaky ReLU & Max Pooling \\ \midrule
 $\mathcal{I}_1$            & (9,9)       & 4       & 1      & 10      & 0.2        & (2,2)       \\
 $\mathcal{I}_2$              & (1,1)       & 0       & 1      & 10      & 0.1        & (2,2)       \\
 $\mathcal{I}_3$            & (5,5)       & 2       & 1      & 1       & 0.2        & (2,2)       \\
@@ -201,7 +202,8 @@ $\mathcal{O}_3$               & -           & -       & -      & 10      & ReLU 
 \end{tabular}
 \vspace{2em}
 \caption{Parameters of the convolutional layers used in the model. The layers of the output module interpolate the tensors to the size of the corresponding input module layer.}\label{tab:channel_estimation_hyperparameters_conv}
-\end{table*}
+}
+\end{table}
 
 \begin{margintable}
 \begin{tabular}{@{}ll@{}}
@@ -227,6 +229,9 @@ Batch size    & $60$    \\ \bottomrule
 
 \subsection{Results}
 The convergence result of the training can be seen in Fig. \ref{fig:training_test_error_channel_estimator}. The performance during testing is lower than training due to the use of dropout layers. These layers are not enabled during testing (unless Bayesian approximation is applied) to ensure the best generalisation, and thus the best performance of the model is achieved when testing. A learning rate scheduler was applied, meaning an early stopped was executed when the learning rate dropped below a certain magnitude (See \ref{subsec:lr_scheduler}).
+
+The model is evaluated for each \gls{srs} configuration as visualized in Fig. \ref{fig:data_channel_estimation}. The results in terms of normalized \gls{mse} can be observed in Fig. \ref{fig:srs_configuration_error_boxplot} for all used configurations. Two common interpolation methods are added for comparison, more specifically, a linear estimator, and a spline estimator (degree $3$) \cite{2020SciPy-NMeth}.  For the sparse \gls{srs} sequences, where frequency hopping is in full effect, the proposed method outperforms regular interpolaters significantly. For instance, for \emph{config $3$} the regular estimators performs poorly when faced with the sparse nature of the configuration. The performance of the spline estimator for \emph{config $3$} is on average at $1.5$ which is not visualised on the plot due to the magnitude in difference. The performance of the proposed method decrease as the period of the \gls{srs} sequence is increased as noted by \emph{config 0, 1} and \emph{2}. This is also the case for \emph{config $3$, $4$} and $5$ but to a much less degree. In any case the proposed method outperforms common channel estimation functions by, in the best case (\emph{config $3$}) by a factor of $19$, and in the worst case a factor of $5$ (\emph{config $0$}).
+
 \begin{figure}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/channel_estimation/Training_test_error.eps}
@@ -234,7 +239,6 @@ The convergence result of the training can be seen in Fig. \ref{fig:training_tes
     \label{fig:training_test_error_channel_estimator}
 \end{figure}
 
-The model is evaluated for each \gls{srs} configuration as visualized in Fig. \ref{fig:data_channel_estimation}. The results in terms of normalized \gls{mse} can be observed in Fig. \ref{fig:srs_configuration_error_boxplot} for all used configurations. Two common interpolation methods are added for comparison, more specifically, a linear estimator, and a spline estimator (degree $3$) \cite{2020SciPy-NMeth}.  For the sparse \gls{srs} sequences, where frequency hopping is in full effect, the proposed method outperforms regular interpolaters significantly. For instance, for \emph{config $3$} the regular estimators performs poorly when faced with the sparse nature of the configuration. The performance of the spline estimator for \emph{config $3$} is on average at $1.5$ which is not visualised on the plot due to the magnitude in difference. The performance of the proposed method decrease as the period of the \gls{srs} sequence is increased as noted by \emph{config 0, 1} and \emph{2}. This is also the case for \emph{config $3$, $4$} and $5$ but to a much less degree. In any case the proposed method outperforms common channel estimation functions by, in the best case (\emph{config $3$}) by a factor of $19$, and in the worst case a factor of $5$ (\emph{config $0$}).
 \begin{figure*}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/channel_estimation/srs_configuration_error_boxplot.eps}
@@ -273,15 +277,13 @@ Given the learning capabilities of the deep channel estimator, and the above pre
 \end{enumerate}
 
 The subcarriers with the highest standard deviation are a set of subcarriers where the learned channel estimator is most uncertain in the predictions. The hypothesis is that by utilizing this information, the next pilot sequence can then be placed in a position that would improve channel estimation predictions. Step 2-5 are then repeated for any future subframes where a pilot placement is to be predicted. The number of samples required in step 2 is directly related to the accuracy of the posterior distribution approximation, given that the model represents a good approximation of the underlying function. For this particular set of results, the network is sampled $100$ times. Correctly, step 5 is completed by averaging the standard deviation over all \gls{ofdm} symbols for the entire frame. The subcarriers that have the highest standard deviation is then identified. The future \gls{srs} sequence is placed such that $N/2$ samples of the pilot bandwidth is distributed on either side of the subcarrier with maximum standard deviation. The results for utilizing the uncertainty metric for a pilot placement strategy can be found below. 
-
-An example of the placement procedure can be found in Fig. \ref{fig:decision_example} for a fixed periodicity. The cold start of the algorithm is presented,  showing the first sequence is placed at random. The maximum standard deviation is used for placing the next \gls{srs} sequence, which in turn lowers the channel estimation error. The first two  \gls{srs} sequences are presented, along with the last two throughout $75$ ms for $300$ subcarriers. 
-
 \begin{figure}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/channel_estimation/decision_example_imshow.eps}
     \caption{The initial decisions of pilot placement achieved by sampling the uncertainty metric of the \gls{dnn}.}
     \label{fig:decision_example}
 \end{figure}
+An example of the placement procedure can be found in Fig. \ref{fig:decision_example} for a fixed periodicity. The cold start of the algorithm is presented,  showing the first sequence is placed at random. The maximum standard deviation is used for placing the next \gls{srs} sequence, which in turn lowers the channel estimation error. The first two  \gls{srs} sequences are presented, along with the last two throughout $75$ ms for $300$ subcarriers. The channel estimation error is visualised in the bottom row over the depicted states.
 
 \subsection{Results}
 To evaluate the strategy of the uncertainty, the length of the  \gls{srs} sequence is varied. The length is described in terms of overhead (\%). Overhead is the percentage of all available resource elements versus resource elements over an entire frame used for the \gls{srs} sequence. The results can be seen in Fig. \ref{fig:overhead_channel_estimation} (lower is better). Three schemes for pilot placement are compared to the proposed method. 
