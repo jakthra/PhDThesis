@@ -59,9 +59,9 @@
     \put(0.01348086,0.02480706){\color[rgb]{0.36078431,0.08235294,0.00392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\text{RMSE} \approx 7.7$ dB\end{tabular}}}}%
     \put(0.36402008,0.16722186){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Version 2 (section \ref{sec:expert_v2})}\end{tabular}}}}%
     \put(0.36550191,0.10663911){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Expert knowledge\\Satellite Imagery\end{tabular}}}}%
-    \put(0.36550191,0.02540944){\color[rgb]{0.12941176,0.24705882,0.09803922}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\text{RMSE} \approx 4.3$ dB\end{tabular}}}}%
+    \put(0.36550191,0.02540944){\color[rgb]{0.12941176,0.24705882,0.09803922}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\text{RMSE} \approx 4.1$ dB\end{tabular}}}}%
     \put(0.72693698,0.10737705){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Expert knowledge\\OSM Imagery\end{tabular}}}}%
     \put(0.71824848,0.16512142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Version 3 (section \ref{sec:osm_v3})}\end{tabular}}}}%
-    \put(0.72693698,0.02363943){\color[rgb]{0.12941176,0.24705882,0.09803922}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\text{RMSE} \approx 4.4$ dB\end{tabular}}}}%
+    \put(0.72693698,0.02363943){\color[rgb]{0.12941176,0.24705882,0.09803922}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\text{RMSE} \approx 4.3$ dB\end{tabular}}}}%
   \end{picture}%
 \endgroup%

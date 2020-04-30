@@ -4,7 +4,7 @@
 
 %%
 % Book metadata
-\title{Optimization of Future Mobile Communication Systems using Deep Learning}
+\title{Optimisation of Future Mobile Communication Systems using Deep Learning}
 \date{01/04/2020}
 \author[Jakob Thrane]{Jakob Thrane}
 \publisher{DTU Fotonik}
@@ -31,18 +31,21 @@
 \usepackage{pdfpages}
 \usepackage{epigraph}
 \usepackage{titlesec}
-\makeatletter
-\titleformat{\part}[display]
-  {\Huge\scshape\filright}
-  {\partname~\thepart:}
-  {20pt}
-  {\thispagestyle{epigraph}}
-\makeatother
-\setlength\epigraphwidth{.6\textwidth}
 
+% \makeatletter
+% \let\old@endpart\@endpart
+% \renewcommand\@endpart[1][]{%
+% \vspace{4em}\hfill\begin{tabular}{@{}p{15em}@{}}#1\end{tabular}%
+% \old@endpart}
+% \makeatother
+\makeatletter
+\let\old@endpart\@endpart
+\renewcommand\@endpart[1][]{%
+\vspace{4em}\begin{center}#1\end{center}%
+\old@endpart}
+\makeatother
 
 \input{acronyms}
-
 
 
 \newcommand{\uma}[1]{\gls{uma}\_#1}
@@ -107,17 +110,22 @@
 }
 
 
-% Prints an epigraph and speaker in sans serif, all-caps type.
-\newcommand{\openepigraph}[2]{%
-  %\sffamily\fontsize{14}{16}\selectfont
-  \begin{fullwidth}
-  \sffamily\large
-  \begin{doublespace}
-  \noindent\allcaps{#1}\\% epigraph
-  \noindent\allcaps{#2}% author
-  \end{doublespace}
-  \end{fullwidth}
+\newcommand*\cleartoleftpage{%
+   \clearpage
+   \ifodd\value{page}\hbox{}\newpage\fi
 }
+
+% % Prints an epigraph and speaker in sans serif, all-caps type.
+% \newcommand{\openepigraph}[2]{%
+%   %\sffamily\fontsize{14}{16}\selectfont
+%   \begin{fullwidth}
+%   \sffamily\large
+%   \begin{doublespace}
+%   \noindent\allcaps{#1}\\% epigraph
+%   \noindent\allcaps{#2}% author
+%   \end{doublespace}
+%   \end{fullwidth}
+% }
 
 \newcommand*{\SignatureAndDate}[1]{%
     \par\noindent\makebox[2.5in]{\hrulefill} \hfill\makebox[2.0in]{\hrulefill}%
@@ -299,26 +307,29 @@ Dedicated to my mother (Hi, Mom!).
 \mainmatter
 
 %\epigraphhead[350]{Modern and future mobile communication systems are complex engineering achievements. Machine Learning thrives on data and is expected to offer improved optimization techniques for future mobile communication systems.}
-\epigraphhead[320]{\footnotesize{Mobile communication systems produce immense data quantities. Deep Learning devours data. }}
-\part{Data is a requirement}
+%\epigraphhead[320]{}
+\begin{fullwidth}
+\part{Data is a requirement}[\footnotesize{Mobile communication systems produce immense data quantities. Deep Learning devours data. }]
+\end{fullwidth}
 \input{chapters/monster.tex}
 \input{chapters/ageOfAI.tex}
 
-\epigraphhead[320]{\footnotesize{The study of applying \acrlong{dl} to radio propagation modelling for mobile communication systems.}}
-\part{Estimation of invisible waves}
+\begin{fullwidth}
+\part{Estimation of invisible waves}[\footnotesize{The study of applying \acrlong{dl} to radio propagation modelling for mobile communication systems.}]
+\end{fullwidth}
 \input{chapters/part_pathloss/pathlossmodels.tex}
 \input{chapters/part_pathloss/satelliteimages.tex}
 \input{chapters/part_pathloss/outdoor_to_indoor.tex}
 \input{chapters/part_pathloss/summary.tex}
-
-\epigraphhead[320]{\footnotesize{The study of improving channel estimation using \acrlong{dl} on sparse uplink reference signals.}}
-\part{Uplink is desperate for attention}
+\begin{fullwidth}
+\part{Uplink is desperate for attention}[\footnotesize{The study of improving channel estimation using \acrlong{dl} on sparse uplink reference signals.}]
+\end{fullwidth}
 \input{chapters/part_uplink/pilotsignals.tex}
 \input{chapters/part_uplink/channelestimation.tex}
 \input{chapters/part_uplink/qlearning.tex}
-
-\epigraphhead[320]{\footnotesize{The findings and contributions of applying \acrlong{dl} to mobile communication systems}}
-\part{Cellular Networks and Deep Learning}
+\begin{fullwidth}
+\part{Cellular Networks and Deep Learning}[\footnotesize{The findings and contributions of applying \acrlong{dl} to mobile communication systems}]
+\end{fullwidth}
 \input{chapters/part_conclusion/contributions.tex}
 \input{chapters/part_conclusion/conclusion}
 
@@ -352,6 +363,7 @@ Dedicated to my mother (Hi, Mom!).
 
 
 %\printindex
-
+\cleartoleftpage
+\includepdf[pages=-]{chapters/thesis_backpage.pdf}
 \end{document}
 

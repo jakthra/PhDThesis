@@ -1,12 +1,12 @@
 \chapter{Ray-tracing model}\label{app:ray_tracing_model}
 
-A ray-tracing model of the Technical University of Denmark have been during the processes related to this dissemination been developed. The ray-tracing model have been implemented following the details as most described in Section \ref{sec:ray-tracing}. This includes the processes of obtaining the necessary data and ensuring it is complaint with modern ray-tracing engines. Remcom Wireless Insite have been used for the ray-tracing engine, by importing a variety of data sources a full 3D model can be constructed. The software uses full 3D ray-propagation techniques accelerated by \gls{gpu}.
+A ray-tracing model of the Technical University of Denmark have been developed. The ray-tracing model have been implemented following the details as most described in Section \ref{sec:ray-tracing}. This includes the processes of obtaining the necessary data and ensuring it is complaint with modern ray-tracing engines. Remcom Wireless Insite \cite{remcom} have been used for the ray-tracing engine, and by importing a variety of data sources a full 3D model can be constructed. The software uses full 3D ray-propagation techniques accelerated by \gls{gpu}.
 
 The obtained ray-tracing model have been used for published research papers, in particular the work found in \cite{Thrane2019ComparisonGHz, Thrane020ModelAidedDeepLearning, Thrane2020DeepKnowledge}.
 
 \section{Data sources}
 
-The processes for construcing the 3D polygons consisted of a relatively simple procedure using the available \gls{lidar} scans \cite{kortforsyningen}. By common practice, two scans are available, a so-called \gls{dtm} and \gls{dsm}. The former is processed to contain only height information of the terrain, while the latter contains all altitude information thus including buildings. Open-source \gls{gis} software suites such as QGIS \cite{QGISDevelopmentTeam2020QGISSystem} was used for processing the \gls{lidar} scans and zonal descriptions. The process can be described as follows. 
+The processes for construcing the 3D polygons consisted of a relatively simple procedure using the available \gls{lidar} scans \cite{kortforsyningen}. By common practice, two data sets are maintained, a so-called \gls{dtm} and \gls{dsm}. The former is processed to contain only height information of the terrain, while the latter contains all altitude information thus including buildings. Open-source \gls{gis} software suites such as QGIS \cite{QGISDevelopmentTeam2020QGISSystem} was used for processing the \gls{lidar} scans and zonal descriptions. The process can be described as follows. 
 \begin{enumerate}
     \item Import \gls{dtm} \gls{lidar} data into QGIS as a \texttt{.geotiff} file. Ensure the coordinate reference system of the files is respected.
     \item Import \gls{dsm} \gls{lidar} data into QGIS
