@@ -6,7 +6,7 @@ In the work \cite{Thrane2020DeepKnowledge}, the proposed approach is validated u
 \begin{figure*}
     \centering
     \includegraphics{chapters/part_pathloss/osm_images_paper/figures/version3_architecture_figure.eps}
-    \caption{Architecture is set to utilize images provided by \gls{osm} instead of satellite images}
+    \caption{Architecture is set to utilize images provided by \gls{osm} instead of satellite images.}
     \label{fig:version3_architecture_figure}
 \end{figure*}
 
@@ -53,7 +53,7 @@ The image was constructed similarly as \emph{v1} and \emph{v2}, using a \gls{roi
     \label{fig:roi_image_preperation}
 \end{figure}
 
-\subsection{Model Architecture}
+\subsection{Model architecture}
 
 The model architecture was kept similar to the one used in \emph{v2} embedding expert knowledge of path loss. A change to model complexity was necessary due to the simplification of 1) the engineered features and 2) the geographical images. The general idea of the model architecture is identical to that of Fig. \ref{fig:combined_model_approach} and Fig. \ref{fig:satellite_model_setup_v2}. The reduction in model complexity resulted in a significant increase in the number of hyper-parameters scanned and the automatization hereof. A Bayesian optimization scheme was applied to find the most probable hyper-parameters given the weight space provided by the final test error \cite{YuHyper-ParameterApplications, wandb}. Over $500$ experiments of different hyper-parameters and combinations hereof was conducted, resulting in a large model complexity reduction. An example of the hyper-parameter experiments can be found in Fig. \ref{fig:hyper-paramters_scan}. The final achieved hyper-parameters can be found in Table \ref{tab:hyper-parameters}.
 
@@ -122,7 +122,7 @@ The performance is also evaluated in terms of \gls{rmse} (see \ref{eq:rmse}). Th
 \end{figure}
 
 \subsection{Image distance results}
-As a result of the reduced model complexity, additional exploration of the importance of spatial dependency has been completed. This has resulted in the comparison of so-called \emph{full-size} images instead of the \emph{regular} \gls{roi} images (centered around the measurement coordinate). The \emph{full-size} images consider not only the receiver location but also the transmitter location. In other words, both positions are within the spanned \emph{full-size} image. Thus, if the antenna separation distance increase, the area spanned by the image increase.  \emph{Regular} images have a constant area covered by the image regardless of antenna separation distance. A so-called \emph{violin} plot is found in Fig. \ref{fig:rmse_violin_image_comparison}. The figure shows the estimation of the kernel density provided by batch-wise \gls{rmse} computation. The distribution and range of using \emph{full-size} images are noticeably different than using the \emph{regular} images spanning 250 meters. More so, the number of outliers (and the range) increased. Using \emph{regular} images resulted in an \gls{rmse} of $6.3$ dB while an \gls{rmse} of $7.3$ dB was achieved using the \emph{full-size} images
+As a result of the reduced model complexity, additional exploration of the importance of spatial dependency has been completed. This has resulted in the comparison of so-called \emph{full-size} images instead of the \emph{regular} \gls{roi} images (centered around the measurement coordinate). The \emph{full-size} images consider not only the receiver location but also the transmitter location. In other words, both positions are within the spanned \emph{full-size} image. Thus, if the antenna separation distance increase, the area spanned by the image increase.  \emph{Regular} images have a constant area covered by the image regardless of antenna separation distance. A so-called \emph{violin} plot is found in Fig. \ref{fig:rmse_violin_image_comparison}. The figure shows the estimation of the kernel density provided by batch-wise \gls{rmse} computation. The distribution and range of using \emph{full-size} images are noticeably different than using the \emph{regular} images spanning 250 meters. More so, the number of outliers (and the range) increased. Using \emph{regular} images resulted in an \gls{rmse} of $6.3$ dB while an \gls{rmse} of $7.3$ dB was achieved using the \emph{full-size} images.
 
 
 

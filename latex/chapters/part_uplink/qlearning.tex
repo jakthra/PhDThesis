@@ -14,7 +14,7 @@ The content of this chapter largely corresponds to the work published in \cite{T
     \includegraphics[width=\textwidth]{chapters/part_uplink/figures/RL_introduction_maindrawing.eps}
     \caption{The user transmits a pilot sequence over the air to the \gls{enb}. The channel estimation accuracy is directly related to the interference caused by other users in the environment, but also the placement of the pilots.}\label{fig:RL_introduction_maindrawing}
 \end{figure*}
-When employing the so-called \gls{srs} sequences in uplink transmission, several optimisation issues arise. Most significantly, 1) ideal pilot placement given the channel estimator function and the statistics, 2) Avoiding inter-cell interference between non-orthogonal pilot configurations (see chapter \ref{ch:pilot_sequence} for \emph{pilot contamination}) . So in other words, the placement of the pilots needs to consider the channel estimator and the channel statistics but also interfering source, e.g. other users and their respective configuration. The placement of the \gls{srs} sequence turns into a complicated optimisation problem that requires fundamental knowledge of two complex situations, the channel conditions and the users in the radio environment. 
+When employing the so-called \gls{srs} sequences in uplink transmission, several optimisation issues arise. Most significantly, 1) ideal pilot placement given the channel estimator function and the statistics, and 2) Avoiding inter-cell interference between non-orthogonal pilot configurations (see chapter \ref{ch:pilot_sequence} for \emph{pilot contamination}). So in other words, the placement of the pilots needs to consider the channel estimator and the channel statistics but also interfering source, e.g. other users and their respective configuration. The placement of the \gls{srs} sequence turns into a complicated optimisation problem that requires fundamental knowledge of two complex situations, the channel conditions and the users in the radio environment. 
 
 The authors in \cite{Simko2013AdaptiveSystems} design an ideal placement strategy which is derived using the auto-correlation function of the channel. Obtaining this function is in practice, not a feasible operation, and shares many similarities with the \gls{mmse} channel estimator as shown in chapter \ref{ch:channel_estimation}. The primary purpose of the novel solution presented in this chapter is to avoid the need for this auto-correlation function and learn all necessary statistics through iterative learning of interacting with the radio environment. 
 
@@ -33,13 +33,13 @@ We consider a mobile environment to consist of multiple users within a given cel
 A few notations are required to formalise the problem and the proposed method. The notations are similar to the content on Chapter \ref{ch:channel_estimation}. The spatial and temporal domain of cellular systems such as LTE and \gls{nr} operate in frequency and time with distinct definitions of frequency and time components. In other words, frequency is defined in terms of the number of \gls{ofdm} subcarriers. While time is defined in terms of \emph{subframes} corresponding to a duration of $1$ ms. In this particular case we define a number of \gls{ofdm} subcarriers of past $m$ subframes with bold: $\mathbf{H} = H[t],H[t-1],...,H[t-m]$. where $t$ denote the subframe and thus $t - m$ denote the time of $m$ subframes prior. Additionally, capital letters (such as $H$) is considered in the frequency domain. We introduce a few notations and definitions as follows
 
 \begin{itemize}
-    \item $H_j$ frequency response for a time-variant channel for some user $j$
-    \item $G_j$ is the generated and transmitted \gls{srs} sequence for some user $i$ with configuration $C_j$ and bandwidth $W$
-    \item $\hat{G_j}$ is the received and demodulated \gls{srs} sequence for some user $j$
-    \item $\widetilde{H_j}$ is the estimated channel response for some user $j$
+    \item $H_j$ frequency response for a time-variant channel for some user $j$.
+    \item $G_j$ is the generated and transmitted \gls{srs} sequence for some user $i$ with configuration $C_j$ and bandwidth $W$.
+    \item $\hat{G_j}$ is the received and demodulated \gls{srs} sequence for some user $j$.
+    \item $\widetilde{H_j}$ is the estimated channel response for some user $j$.
 \end{itemize}
 
-Visual examples of both, $H_j$, $\widetilde{H_j}$, $\hat{G_j}$ can be seen in Chapter \ref{ch:channel_estimation}, more specifically Fig. \ref{fig:prediction_example_grid}. Using these notations we can define $\hat{\mathbf{G_j}}$ as a function of the time-variant channel and the \gls{ici} present in the radio environment. This is seen in Eq. (\ref{eq:received_signal_model})
+Visual examples of both, $H_j$, $\widetilde{H_j}$, $\hat{G_j}$ can be seen in Chapter \ref{ch:channel_estimation}, more specifically Fig. \ref{fig:prediction_example_grid}. Using these notations we can define $\hat{\mathbf{G_j}}$ as a function of the time-variant channel and the \gls{ici} present in the radio environment. This is seen in Eq. (\ref{eq:received_signal_model}):
 \begin{equation}\label{eq:received_signal_model}
     \hat{\mathbf{G_j}} = \mathbf{G_j} \cdot \mathbf{H_j} + \overbrace{\sum_{j \neq i}^N \mathbf{G_j} \cdot \mathbf{H_j}}^{ICI} + \epsilon
 \end{equation}
@@ -56,7 +56,7 @@ The subject of reinforcement learning contains many principles and terms which c
 
 Being capable of mapping a state to an action to maximise a reward is the essence of reinforcement learning. The performance of reinforcement learning systems is heavily based on the quality of the feature representation. Deep Learning systems are capable of extracting high-quality features from high dimensional data (as also illustrated in chapter \ref{ch:satelliteImages}). In essence, it is the same paradigm applied to reinforcement learning problems. However, a few challenges exist. More noticeably the data quantity in reinforcement environments is significantly less than required in other deep learning applications. For example, state of the art deep learning algorithms have learned from large amounts of data which is not the case in reinforcement learning situations. Reinforcement Learning algorithms learn from a sparse, noisy and delayed reward signal which is quite the opposite from large quantities of data \cite{Sutton2017ReinforcementSecond}. 
 
-The area of Deep Reinforcement Learning uses many principles and definitions. A collection of the essential definitions can be found below
+The area of Deep Reinforcement Learning uses many principles and definitions. A collection of the essential definitions can be found below.
 
 
 \subsection{Definitions}
@@ -76,7 +76,7 @@ The area of Deep Reinforcement Learning uses many principles and definitions. A 
         Action & $a$ \\
         Next Action & $a'$ \\
     \end{tabular}
-    \caption{Notation used for Deep Q-learning}
+    \caption{Notation used for Deep Q-learning.}
     \label{tab:deep_q_learning_symbols}
     }
 \end{margintable}
@@ -110,7 +110,7 @@ The purpose of the learning algorithm is two-fold and based on the hypothesis th
     y_i = Q(s, a) = r_i + \gamma \text{max}_{a'} Q^{'}(s', a' | \theta_Q')
 \end{equation}
 
-Also known as the Bellman Equation (rewritten to use Q values, absolute proof is found in \cite{Sutton2017ReinforcementSecond}) that describes the value of a state as the decomposition of the immediate reward, $r_i$, the next state $s'$ and action $a'$. A discount factor is added, termed $\gamma$, this weights immediate rewards versus long-term rewards and is subject to optimisation. We can rewrite Eq. (\ref{eq:bellman-equation}) to consider the channel estimation for a user $j$  as follows
+Also known as the Bellman Equation (rewritten to use Q values, absolute proof is found in \cite{Sutton2017ReinforcementSecond}) that describes the value of a state as the decomposition of the immediate reward, $r_i$, the next state $s'$ and action $a'$. A discount factor is added, termed $\gamma$, this weights immediate rewards versus long-term rewards and is subject to optimisation. We can rewrite Eq. (\ref{eq:bellman-equation}) to consider the channel estimation for a user $j$  as follows:
 
 \begin{equation}\label{eq:value-function}
     y_i = Q(s, a) = r_i + \gamma \text{max}_{a'} Q^{'}(\mathbf{\widetilde{H_{j,i}^{'}}}, a^{'} | \theta_Q')
@@ -122,7 +122,7 @@ The Q value of the current state is determined by 1) the observed reward for a g
     a = \arg \text{max}_{a} \; Q(s, a | \theta_Q)
 \end{equation}
 
-In other words, for a given set of parameters, the action $a$ that maximises the Q value is the best action which leads back to Eq. (\ref{eq:bellman-equation}). This can be rewritten using the notation for the channel estimation for a specific user $j$ as follows.
+In other words, for a given set of parameters, the action $a$ that maximises the Q value is the best action which leads back to Eq. (\ref{eq:bellman-equation}). This can be rewritten using the notation for the channel estimation for a specific user $j$ as follows:
 
 \begin{equation}\label{eq:critic-action}
     a = \arg \text{max}_{a} \; Q(\mathbf{\widetilde{H_{j}}}, a | \theta_Q)
@@ -155,7 +155,7 @@ The \gls{mse} metric is used for measuring the channel estimation accuracy. Thus
     \text{MSE}_{j,t} = \frac{1}{N} \sum_{k = 0}^{N} ( |\mathbf{H_{k,j}}| - |\mathbf{\widetilde{H_{k,j}}}| )^2
 \end{equation}
 
-Where $k$ and thus $N \in H_{n \times m}$ is used as the index of the matrix. The \gls{mse} is formalised as the absolute error squared between the channel estimation and the true channel conditions. This metric of error is used for the design of the reward function. The reward function being the reason that the \emph{agent} learns which actions improve channel estimation. The reward is then formalised as the difference in the channel estimation error between a current state and the next state, or the current state and the previous state as follows
+Where $k$ and thus $N \in H_{n \times m}$ is used as the index of the matrix. The \gls{mse} is formalised as the absolute error squared between the channel estimation and the true channel conditions. This metric of error is used for the design of the reward function. The reward function being the reason that the \emph{agent} learns which actions improve channel estimation. The reward is then formalised as the difference in the channel estimation error between a current state and the next state, or the current state and the previous state as follows:
 
 \begin{equation}
     \Delta \text{MSE}_j = \text{MSE}_{i,t} - \text{MSE}_{i,t+1}
@@ -165,7 +165,7 @@ The intuition here is that taking an action that improves the channel estimation
 
 \begin{equation}\label{eq:reward_minus_5}
 r(\Delta \text{MSE}) = \begin{cases}
-1 &\Delta \text{MSE} >= 0\\
+1 &\Delta \text{MSE} \geq 0\\
 -5 &\Delta \text{MSE} < 0
 \end{cases}
 \end{equation}
@@ -174,7 +174,7 @@ r(\Delta \text{MSE}) = \begin{cases}
 
 \begin{equation}\label{eq:reward_minus_1}
 r(\Delta \text{MSE}) = \begin{cases}
-1 &\Delta \text{MSE} >= 0\\
+1 &\Delta \text{MSE} \geq 0\\
 -1 &\Delta \text{MSE} < 0
 \end{cases}
 \end{equation}
@@ -204,14 +204,14 @@ The critic network, or the \emph{Deep Q-network} provides with the Q values for 
 \noindent Where $\tau$ is a smoothing parameter that assists in the stability and convergence of iterative learning. In other words, the parameters of the target \gls{dqn} are updated using a decomposition of the current critic parameters and the target critic parameters. The parameters of the target critic (noted $\theta_{Q'}$) are updated using the parameters of the critic (noted $\theta_Q$). In summary, 
 
 \begin{enumerate}
-    \item The weights of the critic network is updated using backpropagation wrt. $\theta_Q$ and the loss in Eq. (\ref{eq:critic-loss})
-    \item The target critic is updated using Eq. (\ref{eq:critic-target})
+    \item The weights of the critic network is updated using backpropagation wrt. $\theta_Q$ and the loss in Eq. (\ref{eq:critic-loss}).
+    \item The target critic is updated using Eq. (\ref{eq:critic-target}).
 \end{enumerate}
 
 \subsection{Discount factor}
 The discount factor $\gamma$ in Eq. (\ref{eq:bellman-equation}) represents how future rewards are discounted. If close to $0$, immediate rewards are pursued, while if close to $1$, long-term future rewards are pursued. The equation defines the discounted rewards for a given state sequence, for each of which a reward is observed. The discount factor can also be seen as the "impatience" factor. A $\gamma = 1$ offers only additive rewards while $\gamma = 0$ use the immediate reward of the current state. 
 
-\subsection{Greedy Exploration}
+\subsection{Greedy exploration}
 At the end of each training step, if $\epsilon$ is greater than $\epsilon_{min}$, then it is updated with $\epsilon = \epsilon (1-\alpha_{\epsilon}$). Where we defined $\epsilon$ as the probability threshold to select an action randomly from a uniform distribution or select the action that maximises the state-action value function. This approach is to ensure the model explores the state space, as maximising the long-term rewards might include actions that do not explicitly improve the next channel estimation.
 
 
@@ -221,7 +221,7 @@ At the end of each training step, if $\epsilon$ is greater than $\epsilon_{min}$
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{chapters/part_uplink/figures/RL_dqn_architecture_simplified.eps}
-    \caption{Flow of the \gls{dqn} architecture}
+    \caption{Flow of the \gls{dqn} architecture.}
     \label{fig:dqn_architecture_simplified}
 \end{figure}
 
@@ -230,12 +230,12 @@ The algorithm for the \gls{dqn} can be summarized as visualized in Fig. \ref{fig
 
 \begin{enumerate}
     \item Observe $\mathbf{\widetilde{H_j}}$ from the environment and select a random action $a$ with probability $\epsilon$. Otherwise select an action provided by the \emph{critic value function} Eq. \ref{eq:critic-action}.
-    \item Execute the action $a$ and observe the reward $r$ along with the next observation $\mathbf{\widetilde{H_j^{'}}}$
-    \item Store this experience in a buffer (memory replay)
-    \item Sample a mini-batch of $M$ experiences from the buffer
-    \item If the observation $\mathbf{\widetilde{H_j^{'}}}$ is a terminal state the value function is set to $r$ otherwise we use Eq. \ref{eq:value-function}
+    \item Execute the action $a$ and observe the reward $r$ along with the next observation $\mathbf{\widetilde{H_j^{'}}}$.
+    \item Store this experience in a buffer (memory replay).
+    \item Sample a mini-batch of $M$ experiences from the buffer.
+    \item If the observation $\mathbf{\widetilde{H_j^{'}}}$ is a terminal state the value function is set to $r$ otherwise we use Eq. \ref{eq:value-function}.
     \item Update parameters of the critic network using the loss function in Eq. \ref{eq:critic-loss} and the gradient wrt. 
-    \item Update the target critic using Eq. \ref{eq:critic-target}
+    \item Update the target critic using Eq. \ref{eq:critic-target}.
 \end{enumerate}
 
 This is repeated until the terminal state is reached.
@@ -265,7 +265,7 @@ The mobile communication system shown in Fig. \ref{fig:RL_introduction_maindrawi
 
 
 \subsection{Implementation}
-First and foremost, the implementation must offer feasible computational run-time for training such \glspl{nn} in an iterative manner. Moreover,  scanning the hyper-parameters, as we saw in Chapter \ref{ch:satelliteImages} requires an extensive amount of experiments. Initially, the task of the environment was to compute all necessary elements during training. For example, emulating the channel conditions, computing interference and doing the channel estimation. It was quickly discovered that this introduced a computational bottleneck and unfeasible run-times. Instead, the channel conditions were precomputed for a finite number of subframes and then loaded into the system. Since the placement of the \gls{srs} sequence change the magnitude of interference, the interference computation must remain in the system and cannot be precomputed. The alternative (precomputing all possible combinations) was deemed not feasible for implementation. The implementation flow is visualised in Fig. \ref{fig:environment_implementation}. The DQN algorithm is implemented with MathWorks MATLAB \cite{MATLABRL_toolbox}. 
+First and foremost, the implementation must offer feasible computational run-time for training such \glspl{nn} in an iterative manner. Moreover,  scanning the hyper-parameters, as we saw in Chapter \ref{ch:satelliteImages}, requires an extensive amount of experiments. Initially, the task of the environment was to compute all necessary elements during training. For example, emulating the channel conditions, computing interference and doing the channel estimation. It was quickly discovered that this introduced a computational bottleneck and unfeasible run-times. Instead, the channel conditions were precomputed for a finite number of subframes and then loaded into the system. Since the placement of the \gls{srs} sequence change the magnitude of interference, the interference computation must remain in the system and cannot be precomputed. The alternative (precomputing all possible combinations) was deemed not feasible for implementation. The implementation flow is visualised in Fig. \ref{fig:environment_implementation}. The DQN algorithm is implemented with MathWorks MATLAB \cite{MATLABRL_toolbox}. 
 \begin{figure*}
     \centering
     \includegraphics{chapters/part_uplink/figures/environment_implementation.eps}
@@ -302,7 +302,7 @@ Number of users & $2$ \\
 SRS periodicity & $2$ ms 
 \end{tabular}
 \vspace{1em}
-\caption{Simulation parameters of the channel model and \gls{lte} system configuration}
+\caption{Simulation parameters of the channel model and \gls{lte} system configuration.}
 \label{tab:sim_param}
 }
 \end{margintable}
@@ -325,7 +325,7 @@ Penality & -5 \\
 Interference occupancy & $50\%$
 \end{tabular}
 \vspace{1em}
-\caption{Configuration of training}\label{tab:q_learning_param}
+\caption{Configuration of training.}\label{tab:q_learning_param}
 \end{table}
 
 In order to effectively evaluate the properties of the proposed method, the model is trained once and kept fixed, using a fixed set of hyper-parameters and thus weights. The interference is fixed to a constant configuration; such is defined as occupying $50\%$ of the total resources in frequency. The magnitude of \gls{sinr} for these subcarriers is kept constant at $5$ dB. This is to confine the following described experiments, $\mathcal{A}$ and $\mathcal{B}$. 
@@ -343,7 +343,7 @@ Two sets of experiments are defined, $\mathcal{A}$ and $\mathcal{B}$. They diffe
 \begin{figure}
     \centering
     \includegraphics{chapters/part_uplink/figures/subcarrier_index_experiment_setup.eps}
-    \caption{The proposed method is evaluate using two seperate }
+    \caption{The proposed method is evaluate using two seperate.}
     \label{fig:subcarrier_index_experiment}
 \end{figure}
 
@@ -358,7 +358,7 @@ The model is trained on a static and non-realistic scenario. The purpose of this
 For both evaluation experiments, a separate test set is utilised. The test set differs from the training set with a seed, which offers a difference in channel conditions with the same fundamental parameters and characteristics.
 
 \paragraph{Benchmarking schemes}
-To showcase the performance of the proposed method, two simple methods for pilot configuration and thus placement are implemented. These are termed, \emph{static} and \emph{random}. The pilot sequence used in the \emph{static}-scheme utilize a static pilot sequence configuration. In other words, the actions taken by the \emph{static}-scheme is constant and not contingent on \gls{csi} observations. The \emph{random}-scheme uses random actions sampled from a uniform distribution and is thus random over the duration of simulation (again, it is not channel-aware and therefore does not observe any \gls{csi}) 
+To showcase the performance of the proposed method, two simple methods for pilot configuration and thus placement are implemented. These are termed, \emph{static} and \emph{random}. The pilot sequence used in the \emph{static}-scheme utilize a static pilot sequence configuration. In other words, the actions taken by the \emph{static}-scheme is constant and not contingent on \gls{csi} observations. The \emph{random}-scheme uses random actions sampled from a uniform distribution and is thus random over the duration of simulation (again, it is not channel-aware and therefore does not observe any \gls{csi}). 
  \begin{figure}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/SINR_sweep.eps}
@@ -388,8 +388,10 @@ The difference between the proposed method (both in training and testing) and th
     \caption{Channel estimation performance (\gls{mse}) as contamination increases.}
     \label{fig:RL_MSE_Interference}
 \end{figure}
-In Fig. \ref{fig:RL_MSE_Interference} the \gls{mse} channel estimation performance is shown as the number of contaminated subcarriers is increased from no contamination to full bandwidth contamination. The transmitted pilot sequence span $10\%$ of the available resources. The proposed method is shown in terms of performance during training and testing. The static scheme can be seen to degrade in performance, as the number of contaminated subcarriers increases. Saturation is reached at the bandwidth of the transmitted pilot sequence ($10\%$ corresponding to $60$ subcarriers). The random scheme is shown with $\pm \sigma$. The magnitude can be seen to decrease as the amount of contaminated subcarriers increases. The training and test performance of the proposed method is shown, and the dashed line at $50\%$ contamination illustrates the dataset at which the method is trained. It can be seen that the test performance of the method is approximately constant for $0$ to $60\%$ contamination. A steady decrease in performance is observed when additional contamination is present in the radio environment. 
 
+
+
+In Fig. \ref{fig:RL_MSE_Interference} the \gls{mse} channel estimation performance is shown as the number of contaminated subcarriers is increased from no contamination to full bandwidth contamination. The transmitted pilot sequence span $10\%$ of the available resources. The proposed method is shown in terms of performance during training and testing. The static scheme can be seen to degrade in performance, as the number of contaminated subcarriers increases. Saturation is reached at the bandwidth of the transmitted pilot sequence ($10\%$ corresponding to $60$ subcarriers). The random scheme is shown with $\pm \sigma$. The magnitude can be seen to decrease as the amount of contaminated subcarriers increases. The training and test performance of the proposed method is shown, and the dashed line at $50\%$ contamination illustrates the dataset at which the method is trained. It can be seen that the test performance of the method is approximately constant for $0$ to $60\%$ contamination. A steady decrease in performance is observed when additional contamination is present in the radio environment. 
 \begin{figure}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/MSE_Interference_zoomedin.eps}
@@ -397,19 +399,19 @@ In Fig. \ref{fig:RL_MSE_Interference} the \gls{mse} channel estimation performan
     \label{fig:RL_MSE_Interference_zoomedin}
 \end{figure}
 
+
 When no contamination is present, the proposed method (during training) outperforms the random scheme with $0.05$ dB. however, during testing, no performance gains can be seen from $0\%$ to $5\%$, observed in Fig. \ref{fig:RL_MSE_Interference_zoomedin}. 
 At $50\%$ contamination, the proposed model outperforms, the random scheme by $\approx 0.5$ dB and the static scheme by $\approx 0.9$ dB. The static scheme corresponds to doing nothing, and the performance is the effect of $5$ dB \gls{sinr} contamination. The random scheme shows a performance gain of $\approx 0.3$ dB compared to the static scheme. The performance of the proposed method reaches a minimum when full contamination is reached, or an overlap between the bandwidth of the transmitted pilot sequence and the available subcarriers that are not contaminated. Thus, from $90\%$ of contamination, the performance saturates and reaches similar values to that of the random scheme. 
-
-\begin{figure*}
-    \centering
-    \includegraphics{chapters/part_uplink/figures/results/action_timeseries.eps}
-    \caption{Actions taken over the duration of the first 200 subframes on the test set}
-    \label{fig:RL_action_timeseries}
-\end{figure*}
 
 The actions taken by the algorithm for the first 200 subframes can be observed in Fig. \ref{fig:RL_action_timeseries}. It shows the area where contamination is present and where actions have been taken under the influence of $5$ dB and $20$ dB of \gls{sinr}. The taken actions enable the study of performance for higher \gls{sinr} values, as presented in Fig. \ref{fig:RL_SINR_sweep_diff}. For $5$ dB \gls{sinr}, only a single action is taken such that the \gls{srs} sequence is placed within the area of contamination. Identical behaviour is seen for $20$ dB \gls{sinr}.
 
 
+\begin{figure*}
+    \centering
+    \includegraphics{chapters/part_uplink/figures/results/action_timeseries.eps}
+    \caption{Actions taken over the duration of the first 200 subframes on the test set.}
+    \label{fig:RL_action_timeseries}
+\end{figure*}
 
 
 
@@ -422,28 +424,28 @@ The distribution of the taken actions has been shown for different levels of \gl
 
 
 \subsection{A different reward function}
+
+\noindent The previously presented results are obtained by using a harsh reward function, e.g. Eq. (\ref{eq:reward_minus_5}). So what happens if the reward is less harsh? A core discussion and conclusion of the present results show that the method possesses issues of exploration. In simple terms, the method avoids a penalty of $-5$ which can lead to believe that the learning is restricted. In Fig. \ref{fig:RL_different_reward_-1} the results of using a penalty of $-1$, i.e. Eq. (\ref{eq:reward_minus_1}) is used. It shows a performance increase of up to $0.5$ dB compared to the random scheme, which is less than previously shown (by $-0.1$ dB).   
+
 \begin{figure*}
     \centering
     \includegraphics[width=0.5\textwidth]{chapters/part_uplink/figures/results/rewardadjustsment_-1/SINR_sweep.eps}
     \includegraphics[width=0.45\textwidth]{chapters/part_uplink/figures/results/rewardadjustsment_-1/SINR_sweep_diff.eps}
-    \caption{The performance of reward function Eq. (\ref{eq:reward_minus_1}) for different levels of \gls{sinr}}
+    \caption{The performance of reward function Eq. (\ref{eq:reward_minus_1}) for different levels of \gls{sinr}.}
     \label{fig:RL_different_reward_-1}
 \end{figure*}
 
-\noindent The previously presented results are obtained by using a harsh reward function, e.g. Eq. (\ref{eq:reward_minus_5}). So what happens if the reward is less harsh? A core discussion and conclusion of the present results show that the method possesses issues of exploration. In simple terms, the method avoids a penalty of $-5$ which can lead to believe that the learning is restricted. In Fig. \ref{fig:RL_different_reward_-1} the results of using a penalty of $-1$, i.e. Eq. (\ref{eq:reward_minus_1}) is used. It shows a performance increase of up to $0.5$ dB compared to the random scheme, which is less than previously shown (by $-0.1$ dB).   
-
 The resulting action space for the first 200 subframes is shown in Fig. \ref{fig:RL_different_reward_-1_actions}. The number of actions taken in the contaminated area is increased compared to Fig. \ref{fig:RL_action_timeseries} for higher values of \gls{sinr}. Over a significant duration of the subframes, a single constant action is taken. Such behaviour can be observed from $\approx 70$ ms to $\approx 170$ ms.
 
-\begin{figure}
+
+\begin{figure*}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/rewardadjustsment_-1/action_timeseries.eps}
-    \caption{Actions taken for a less harsh reward function Eq. (\ref{eq:reward_minus_1})}
+    \caption{Actions taken for a less harsh reward function Eq. (\ref{eq:reward_minus_1}).}
     \label{fig:RL_different_reward_-1_actions}
-\end{figure}
+\end{figure*}
 
 The evaluation of a different reward function (with a less harsh penalty) does not result in improved performance, and on the contrary, it worsens the performance at lower levels of \gls{sinr}. Even though exploration is increased, it seems to be in vain and at the cost of being too conservative in taking actions.
-
-
 \section{Discussion}
 It is the purpose of the method to improve on two complex tasks related to the performance of channel estimation. Thus improve channel estimation performance by learning the channel statistics and placing pilots such that 1) interpolation accuracy is maximised, and 2) avoiding contamination. The method can be seen to be highly effective at avoiding contamination, illustrated by the near-constant channel estimation performance at both varying levels of \gls{sinr} and subcarriers influenced by contamination. These results offers evidence that the method is sufficient for providing a feasible solution for (2), so what about (1)? 
 

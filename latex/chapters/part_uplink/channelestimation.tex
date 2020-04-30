@@ -29,7 +29,7 @@ By knowing the location of the received pilot signals, in both time and frequenc
 
 Various methods exist for obtaining the function $Z(\cdot)$ \cite{Oyerinde2012ReviewSystems}. One example is the linear estimator denoted by the use of \gls{ls} estimation (essentially the adaptive filter mentioned in Chapter \ref{ch:mlbasics}). \acrlong{ls} channel estimators are straightforward and simple to implement as opposed to the \gls{mmse} channel estimation that requires statistical knowledge of the channel but can offer improved performance. Both are essentially linear estimators resulting in a linear interpolation between the received pilot symbols but with different performance \cite{Cho2010MIMO-OFDMMATLAB}. There are many channel estimation methods utilized in \gls{ofdm}-based systems (\gls{lte}), an overview can be found in \cite{Liu2014ChannelOFDM}. Traditionally, such methods are tasked with estimating the channel frequency response and denoted by the channel matrix $H$. Recently parametric-based models have gained attention due to the capabilities of estimating the matrix even with a sparse set of pilots.
 
-\subsection{Deep Learning Techniques}
+\subsection{Deep Learning techniques}
 The paper \cite{Soltani2019DeepEstimation} sparked the idea of utilizing Deep Learning for channel estimation problems. Traditional methods are effectively interpolation methods, and Deep Learning methods can be trained to operate in the same manner. 
 
 The authors in \cite{Soltani2019DeepEstimation} utilize so-called image super-resolution techniques for improving channel estimation. The intuition here is that the observed and received resource grid is essentially an image consisting of a width (time) and a height (frequency). The resource grid is subjected to a super-resolution algorithm that primarily considers a resource grid using only a few pilots as a low-resolution image and is tasked with learning the high-resolution version. An implementation of the work documented by the authors have been completed and can be found in \cite{Thrane2020RepositoryLearning}. Upon implementation, several shortcomings were identified. 
@@ -129,7 +129,7 @@ User velocity & 5 m/s
 \label{tab:sim_param_channel_est}
 \end{table}
 
-\subsection{Model Architecture}
+\subsection{Model architecture}
 The model architecture can be described as an hour-glass type Deep Learning model, as usually seen used in auto-encoders \cite{Nielsen2015}. The model architecture is visualized in Fig. \ref{fig:model_architecture_channel_estimation}. In brief terms the model is tasked with observing sparse and noisy \gls{srs} sequence and through a set of dimensionality reducing layers it obtains a latent layer, $\mathcal{L}$, which is tasked with learning the most important characteristics of the channel. A set of up-scaling layers are then applied to scale from the reduced dimension of the latent layer $\mathcal{L}$ to the original dimensions of the resource grid. Doing so enables for optimization using the loss function seen in Eq. (\ref{eq:loss_function_channel_est}) utilizing the true channel coefficients $\mathbf{H}$ and the estimated channel coefficients $\mathbf{\widetilde{H}}$. Moreover, the model makes use of so-called residual connections. The use of residual connections have shown to be effective in image recognition problems, as the information bottleneck imposed by the dimensionality reduction layers restricts learning and the \emph{knowledge} passed through the sequential layers of the model \cite{He2016DeepRecognition}. In simple terms, the symmetrical properties of the hour-glass type model allow for connections between the input and the output layers. 
 
 \begin{figure*}
@@ -149,20 +149,20 @@ A set of standard components for building deep learning models are utilized in t
 The input module, $\mathcal{I}(\cdot)$, is tasked with applying a set of image processing operations to the matrix $\mathbf{\hat{G}}$. These can furthermore be specified (in sequence) as:
 
 \begin{enumerate}
-    \item $2$D Convolution
-    \item \gls{relu} activation function
-    \item Batch Normalization
-    \item Max Pooling
+    \item $2$D Convolution.
+    \item \gls{relu} activation function.
+    \item Batch Normalization.
+    \item Max Pooling.
 \end{enumerate}
 
 We term this sequence a single \emph{layer} in the input module. The input module consists of a total of $3$ layers, and each utilizes the above set of modules.
 
 \paragraph{Latent module}
-The latent module, $\mathcal{L}(\cdot)$, is tasked with conveying the reduced information of the observed \gls{srs} sequence from the \textit{input module} to a set of fully connected and adaptive weights. For this module only a single layer is considered. The layer consists of the following sequence
+The latent module, $\mathcal{L}(\cdot)$, is tasked with conveying the reduced information of the observed \gls{srs} sequence from the \textit{input module} to a set of fully connected and adaptive weights. For this module only a single layer is considered. The layer consists of the following sequence:
 \begin{enumerate}
-    \item Fully-connected dense layer
-    \item \gls{relu} activation function
-    \item Drop-out
+    \item Fully-connected dense layer.
+    \item \gls{relu} activation function.
+    \item Drop-out.
 \end{enumerate}
 
 \paragraph{Output module}
@@ -184,7 +184,7 @@ The full implementation of the model can be found in \cite{Thrane2020RepositoryL
 
 
 \paragraph{Hyperparameters}
-A grid search was utilized to discover the best performing hyper-parameters. The parameters for the convolutional layers can be seen in Table \ref{tab:channel_estimation_hyperparameters_conv}. The remainder of the hyper-parameters can be seen in Table. \ref{tab:channel_estimation_hyperparameters}
+A grid search was utilized to discover the best performing hyper-parameters. The parameters for the convolutional layers can be seen in Table \ref{tab:channel_estimation_hyperparameters_conv}. The remainder of the hyper-parameters can be seen in Table \ref{tab:channel_estimation_hyperparameters}.
 
 
 \begin{table}[]
@@ -235,14 +235,14 @@ The model is evaluated for each \gls{srs} configuration as visualized in Fig. \r
 \begin{figure}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/channel_estimation/Training_test_error.eps}
-    \caption{The \gls{mse} of the model during training and evaluated on the test set each \emph{epoch}}
+    \caption{The \gls{mse} of the model during training and evaluated on the test set each \emph{epoch}.}
     \label{fig:training_test_error_channel_estimator}
 \end{figure}
 
 \begin{figure*}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/channel_estimation/srs_configuration_error_boxplot.eps}
-    \caption{Evaluation of the proposed method compared to common channel estimators for different configurations of \gls{srs} sequence. (Lower is better)}
+    \caption{Evaluation of the proposed method compared to common channel estimators for different configurations of \gls{srs} sequence. (Lower is better).}
     \label{fig:srs_configuration_error_boxplot}
 \end{figure*}
 
@@ -299,7 +299,7 @@ It can be seen that placing pilots randomly for up to $3\%$ of overhead outperfo
 \begin{figure}
     \centering
     \includegraphics{chapters/part_uplink/figures/results/channel_estimation/overhead_comparison_scheme.eps}
-    \caption{Channel estimation performance of different \gls{srs} placement schemes}
+    \caption{Channel estimation performance of different \gls{srs} placement schemes.}
     \label{fig:overhead_channel_estimation}
 \end{figure}
 
@@ -319,7 +319,7 @@ A key challenge of the proposed method can be narrowed down to the practicalitie
 
 Deep Learning for channel estimation is a valuable tool for exploiting the correlations in the resource grid of \gls{ofdm} symbols. The use of the convolutional layers, as reported by results in this dissertation, and by state-of-the-art published research is ideal for capturing the statistics for accurate channel estimations. Furthermore, with the dimensionality increase of \gls{mimo} systems, the scalability properties of the convolutional layers in the \gls{dnn} is favourable for maintaining low complexity channel estimators. It has been shown that by using \gls{dl}-based channel estimators, the needed number of pilots can effectively be reduced. Reducing the number of pilots is essential for solving future issues related to \emph{pilot contamination}. The overhead and coordination required for pilot signals in future \gls{mimo} system cause significant problems and has has been termed \emph{pilot contamination}. The core issues of \emph{pilot contamination} and solutions hereof is outlined in the next chapter (see Chapter \ref{ch:channel_q_learning}), along with the application of a Deep Reinforcement Learning algorithm based on the experiences documented in this chapter.
 
-\section{Identified Challenges}\label{sec:channel_estimation_challenges}
+\section{Identified challenges}\label{sec:channel_estimation_challenges}
 In this chapter, the application of Deep Learning for channel estimation has been shown. Furthermore, a method for \gls{srs} sequence placement to improve future channel estimation have been presented. The challenges of utilizing \gls{dnn} for channel estimation have been discussed throughout this chapter. A summary of the most noticeable challenges associated with deep channel estimators can be found below
 \begin{itemize}
     \item Obtaining a training set for a deep channel estimator.
@@ -331,7 +331,7 @@ In this chapter, the application of Deep Learning for channel estimation has bee
 The resource grid of \gls{lte} and \gls{nr} systems spanning time and frequency components are well suited for deep learning methodologies and image processing techniques. The experiences and results obtained through this chapter have laid the foundation for the novel solution presented in  Chapter \ref{ch:channel_q_learning}. The outcome of the above research can be summarized as the following.
 
 \begin{itemize}
-    \item Convolutional layers are efficient in learning correlation present in OFDM resource grids using \gls{srs} sequences
+    \item Convolutional layers are efficient in learning correlation present in OFDM resource grids using \gls{srs} sequences.
     \item A deep channel estimator can significantly reduce the required pilot symbols for accurate channel estimation.
-    \item Novel solutions for further optimizing channel estimation can be engineered via pilot placement techniques 
+    \item Novel solutions for further optimizing channel estimation can be engineered via pilot placement techniques. 
 \end{itemize}

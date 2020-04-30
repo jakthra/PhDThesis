@@ -3,13 +3,13 @@
 Mobile technologies have come a long way for exchanging control information and channel dedicated to control information have been designed for most mobile technologies. An important part of the control information is information related to the channel state. This information can help make correct and optimized decisions, given the radio condition that is experienced or expected on a given link. Such information is vital to the optimization of \gls{mimo} transmission due to the selection and configuration of the transmission. From how the symbols should be coded, to how the transmission mode should be configured. The configuration of all parameters related to transmission is in overall terms based on:
 
 \begin{enumerate}
-    \item Channel conditions between the transmitter and the receiver (in both uplink and downlink)
-    \item Network-wide state
+    \item Channel conditions between the transmitter and the receiver (in both uplink and downlink).
+    \item Network-wide state.
 \end{enumerate}
 
 Specific signals (also called reference or pilot signals) are used to sample the channel to obtain information about the channel conditions. Such information is also termed \gls{csi}, and have a long list of use cases in both uplink and downlink transmission.
 
-In this chapter, an introduction to reference signals used in wireless communication will be given. A focus will be on the uplink for one primary reason; \emph{Large quantities of \gls{csi} data is obtained at the base stations which have significant processing capabilities and fewer energy constraints than user terminals \cite{Studer2018}}. A large amount of raw \gls{csi} data from the uplink transmission is a promising place to look for relevant and feasible \gls{dl} solutions as the practicality of computational processing is simplified compared to downlink transmission. In downlink transmission, the processing takes place at the receiver, which in mobile communication systems have several constraints related to energy and computation. This chapter work as an introduction to Chapter \ref{ch:channel_estimation} and \ref{ch:channel_q_learning}. The content of the chapter is organized as follows. An introduction to noticeable literature related to pilot optimization is given with an emphasis on the uplink and relevant problems hereof. Finally, an introduction to the specifics of the pilot signals is given
+In this chapter, an introduction to reference signals used in wireless communication will be given. A focus will be on the uplink for one primary reason; \emph{Large quantities of \gls{csi} data is obtained at the base stations which have significant processing capabilities and fewer energy constraints than user terminals \cite{Studer2018}}. A large amount of raw \gls{csi} data from the uplink transmission is a promising place to look for relevant and feasible \gls{dl} solutions as the practicality of computational processing is simplified compared to downlink transmission. In downlink transmission, the processing takes place at the receiver, which in mobile communication systems have several constraints related to energy and computation. This chapter work as an introduction to Chapter \ref{ch:channel_estimation} and \ref{ch:channel_q_learning}. The content of the chapter is organized as follows. An introduction to noticeable literature related to pilot optimization is given with an emphasis on the uplink and relevant problems hereof. Finally, an introduction to the specifics of the pilot signals is given.
 
 
 \section{Introduction}\label{sec:pilot_introduction}
@@ -26,9 +26,9 @@ Recently, with the promotion of \gls{nr} related solutions, beamforming in \gls{
 The consequences of pilot contamination in \gls{tdd} systems is well described and outlined in the comprehensive work found in \cite{Elijah2016ASystem}. In \gls{tdd} systems, the idea of channel reciprocity is a key feature for minimizing the pilot contamination. The authors in \cite{Elijah2016ASystem} identify the sources of pilot contamination as related to three major factors.
 
 \begin{enumerate}
-    \item Non-orthogonal pilot schemes
-    \item Hardware impairments
-    \item Non-reciprocal transceivers
+    \item Non-orthogonal pilot schemes.
+    \item Hardware impairments.
+    \item Non-reciprocal transceivers.
 \end{enumerate}
 
 The sharing of non-orthogonal pilots between cells in a multi-cell system (with frequency reuse) cause inter-cell interference to be the primary source of pilot contamination. The effect of pilot contamination results in imperfect and noisy \gls{csi}, which have a direct impact on the performance of the \gls{mimo} system. (A complete list of relevant literature that studies the effect of imperfect channel knowledge can be found in \cite{Elijah2016ASystem}). However, allocating more pilots to achieve good channel knowledge also has a significant drawback in terms of overhead. In other words, a trade-off exists between pilots needed for obtaining channel knowledge and the result of imperfect channel knowledge. The optimization of pilots is thus two-fold; by increasing the number of pilots, the overhead increases (which have an impact on the \gls{se})—decreasing the amount of pilots results in imperfect channel knowledge also affect \gls{se}.
@@ -80,7 +80,7 @@ srs-HoppingBandwidth & $b_{hop}$    & Bandwidth of frequency hopping            
 srs-BandwidthConfig  & $C_{SRS}$    & Cell-specific bandwidth parameter                                     \\ \bottomrule
 \end{tabular}
 \vspace{1em}
-\caption{Essential \gls{srs} configuration parameters}\label{tab:srs_config_param}
+\caption{Essential \gls{srs} configuration parameters.}\label{tab:srs_config_param}
 \end{table*}
 
 The remainder of the needed parameters for constructing the \gls{srs} sequence are given by various tables in \cite{36211,3GPP2020TS15}. For instance, having an uplink bandwidth of $40$ to $60$ resource blocks refers to Table 5.5.3.2-2 in 36.211. Supplied by the table, the configuration of cell-specific bandwidth $C_{SRS}$, and the bandwidth of the \gls{ue} $B_{SRS}$ - the length of the resulting Zadoff-Chu sequence is calculated. The $I_{SRS}$ parameters refer to Table 5.5.3.3-1 in 36.211, that determines the periodicity and the transmission offset.

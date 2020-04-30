@@ -28,10 +28,10 @@ To avoid the need for complicated features, and time-consuming feature engineeri
 
 A novel methodology for path loss and signal quality parameter approximation using satellite images is proposed in this dissertation. The results of the documented methods have resulted in three publications \cite{Thrane2018DriveApproximation, Thrane020ModelAidedDeepLearning, Thrane2020DeepKnowledge}. The main contributions of the publications are introduced in the remainder of this chapter. Additionally, a more in-depth discussion and conclusion are supplied. The model architecture for providing path loss and received signal quality metrics using satellite images have been under constant evolution. A significant difference in model architecture and complexity can be observed for all proposed methods.  For cohesion, all methods and the resulting performance is outlined in this section. However, all methods share the same essential component, utilising images for improving signal quality parameter prediction. The evolution of the proposed method can be termed according to the iterations, thus \cite{Thrane2018DriveApproximation} as \emph{version 1 (v1)}, \cite{Thrane020ModelAidedDeepLearning} as \emph{version 2 (v2)} and \cite{Thrane2020DeepKnowledge} as \emph{version 3 (v3)}. 
 \begin{itemize}
-    \item A summary of \emph{version 1} can be found in Section \ref{sec:summary_version1}. 
-    \item A summary of \emph{version 2} can be found in Section \ref{subsec:conclusion_v2}. 
-    \item A summary of \emph{version 3} can be found in Section \ref{subsec:conclusion_v3}
-    \item Discussion, conclusion and future outlook can be found in Section \ref{sec:satellite_image_discussion}
+    \item A summary of \emph{version 1} can be found in Section \ref{sec:summary_version1}.
+    \item A summary of \emph{version 2} can be found in Section \ref{subsec:conclusion_v2}.
+    \item A summary of \emph{version 3} can be found in Section \ref{subsec:conclusion_v3}.
+    \item Discussion, conclusion and future outlook can be found in Section \ref{sec:satellite_image_discussion}.
 \end{itemize}
 \noindent
 High-resolution satellite images of areas are obtainable using such services as the \emph{static API} from Google Maps \cite{GoogleAPI}, or Mapbox API \cite{MapboxWebsite}. The latter is utilised for this work. The idea of predicting path loss from such images stems mainly from the data availability, but also because such images outline the actual details of a propagation environment. The magnitude of details present in high resolution satellite images greatly surpass that of available open-source meta-data used in models such as ray-tracing. In order to formalise the use of satellite images for path loss prediction, several factors and features needs to be considered to aid the learning process. Given the empirical knowledge of path loss in outdoor propagation scenarios as presented in chapter \ref{ch:channelmodellingbasics}, we can hypothesise where such images may offer the most gain. Local variability, is a term describing losses associated with local obstacles in relation to a receiver position for instance, buildings or vegetation. The primary purpose of the satellite images is to assist in determining attenuation related to local variability from imagery that visualises the local area of the receiver. Thus, to effectively utilise such images, they must contain information on local variability, e.g. the large-scale fading present in the environment. The images must be of high enough resolution such that buildings, vegetation and other structure can be perceived.
@@ -121,7 +121,7 @@ The process of utilizing satellite images for path loss prediction has been an o
 \begin{itemize}
     \item \emph{Version 1} Initial exploration - Proof of concept. Generalization issues and further need for comparative studies.
     \item \emph{Version 2} Model-aided approach - Applied techniques for improving generalization and the comparison to traditional approaches.
-    \item \emph{Version 3} Simplified images - Additional measurements from an inherently different origin. The study of simplistic images and the impact on predictive performance
+    \item \emph{Version 3} Simplified images - Additional measurements from an inherently different origin. The study of simplistic images and the impact on predictive performance.
 \end{itemize}
 
 \vspace{1em}

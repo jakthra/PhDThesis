@@ -275,8 +275,6 @@ under the License.\index{license}
 \input{chapters/abstract_english.tex}
 \input{chapters/preface.tex}
 
-\printglossary[type=\acronymtype, nonumberlist, title=Acronyms]
-
 % r.5 contents
 \begin{fullwidth}
 \tableofcontents
@@ -328,19 +326,18 @@ Dedicated to my mother (Hi, Mom!).
 \input{chapters/part_uplink/channelestimation.tex}
 \input{chapters/part_uplink/qlearning.tex}
 \begin{fullwidth}
-\part{Cellular Networks and Deep Learning}[\footnotesize{The findings and contributions of applying \acrlong{dl} to mobile communication systems}]
+\part{Cellular Networks and Deep Learning}[\footnotesize{The findings and contributions of applying \acrlong{dl} to mobile communication systems.}]
 \end{fullwidth}
 \input{chapters/part_conclusion/contributions.tex}
 \input{chapters/part_conclusion/conclusion}
 
-
+\appendix
 {\footnotesize
 \printbibliography[heading=bibintoc]}
+\printglossary[type=\acronymtype, nonumberlist, title=Acronyms]
+\addcontentsline{toc}{chapter}{Acronyms}
 
-
-\epigraphhead[350]{}
 \part{Appendicies}
-\appendix
 \input{appendix/drive_test_study.tex}
 \input{appendix/ray_tracing_model.tex}
 \input{appendix/hyper_parameter_scan}

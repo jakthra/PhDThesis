@@ -109,7 +109,7 @@ The \gls{rsrp} measured was averaged over all samples taken at each measurement 
     Receiver antenna position      & Vertical          \\ \midrule
     TX/RX antenna gain             & $5$ dBi/$5.8$ dBi \\ \bottomrule
     \end{tabular}
-    \caption{Measurement configuration and parameters}\label{tab:measurement_configuration}
+    \caption{Measurement configuration and parameters.}\label{tab:measurement_configuration}
     }
 \end{table}
 
@@ -120,7 +120,7 @@ A method was developed for inferring indoor positioning from the LIDAR scan. It 
     \item Identify start and end positions of measurement campaigns within the $3$D point cloud.
     \item Interpolate measurement positions ($x, y$) given the start and end positions and the number $N$ measurements conducted.
     \item Look-up the interpolated coordinates to obtain ($x, y, z$) pairs.
-    \item Convert local coordinate system (DTULOK) to UTM32/WSG84
+    \item Convert local coordinate system (DTULOK) to UTM32/WSG84.
 \end{enumerate}
 
 Accurate identification of the start and end positions within the point cloud (step 1) is paramount to high accuracy for the remainder of the measurement positions. The step was split into two procedures for achieving accurate identification, a) ensuring the start and end positions were well documented with pictures and can visually be identified using, e.g. a large pipe or other significant characteristics of the environment. b) an interactive program was created to narrow down such characteristics within the point cloud. An example can be seen in Fig. \ref{fig:tunnel_3d_view}. 
@@ -145,21 +145,21 @@ Computing the indoor distance metric has a few geometric requirements. Firstly, 
 \begin{itemize}
     \item Indoor distance to the intersecting tunnel wall/edge $d_{in}$.
     \item Penetration distance, distance between the tunnel wall/edge and the terrain $d_{pen}$.
-    \item Average $2$D distance to intersecting corridor $d_{cor,avg}$
+    \item Average $2$D distance to intersecting corridor $d_{cor,avg}$.
 \end{itemize}
 
 
 \begin{figure}
     \centering
     \includegraphics{chapters/part_pathloss/figures/outdoor_to_indoor/inside_distance_illustration.eps}
-    \caption{Distance metrics utilizing tunnel geometry and accurate indoor positions using elevation angles $\theta$}
+    \caption{Distance metrics utilizing tunnel geometry and accurate indoor positions using elevation angles $\theta$.}
     \label{fig:inside_distance_xz}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics{chapters/part_pathloss/figures/outdoor_to_indoor/inside_distance_illustration_xyplane.eps}
-    \caption{Distance metrics utilizing tunnel geometry and accurate indoor positions using azimuth angles $\phi$}
+    \caption{Distance metrics utilizing tunnel geometry and accurate indoor positions using azimuth angles $\phi$.}
     \label{fig:inside_distance_xy}
 \end{figure}
 
@@ -187,7 +187,7 @@ Finally, the terrain information for computing and deriving the penetration dist
     $d_{pen,3D} + d_{in,3D}+d_{cor,avg}$ & $0.150$ & $89.276$       \\
     $\phi + \theta$          & $\mathbf{0.173}$ & $\mathbf{86.763}$       \\ \bottomrule
     \end{tabular}
-    \caption{Results of linear regression using OLS \cite{seabold2010statsmodels}}\label{tab:ols_results}
+    \caption{Results of linear regression using OLS \cite{seabold2010statsmodels}.}\label{tab:ols_results}
     \vspace{1em}
 \end{table}
 \noindent The measured \gls{rsrp} concatenated for all measurement subsets (i.e. corridors) are seen in Fig. \ref{fig:indoor_distance_reg} as a function of the $3$D distance (a), and $d_{in,2d}$ (b). Also shown is the prediction of the basic path loss offered by the \gls{3gpp} \gls{uma} model as given by partly by Eq. (\ref{eq:uma_nlos_pathloss_max}). The full path loss model can be found in \cite{38211}. Several (easy separately) clusters are observed for \gls{rsrp} as a function of $d_{in,2d}$, as seen in Fig. \ref{fig:indoor_distance_reg}(b), corresponding to each of the different corridors in which measurements were conducted.
@@ -218,7 +218,7 @@ The predictive performance of utilizing the \gls{o2i} path loss model given by E
 \end{figure}
 
 \subsection{Discussion}
-The additional path loss based on indoor distance does not in the current state reflect that of Deep-indoor situations. The model utilizing indoor distance produces an increase in the predictive error of \gls{rsrp} as the indoor distance increase, caused by 1) the losses associated with penetration (i.e. $PL_{tw}$) does not reflect the mean attenuation satisfactorily, and 2) the model uses a constant term that is distance-based. As highlighted by the results of the linear regression, using any of the indoor distance metrics of $d_pen$ or $d_in$ is a poor choice of a predictor using a linear model than compared to 1) features of tunnel geometry $d_{cor,avg}$, and 2) angles of azimuth and elevation. From these findings, it indicates that A) tunnel geometry-based features are superior to indoor distance features and B) The geostatistics of the measurement area is complex, and \gls{rsrp} is highly dependent on local variability. In summary, the findings of A) highlights the importance of tunnel geometry in \gls{o2i} propagation scenarios, and B) Attenuation is largely based on localization, which indicates complex local variability terms.
+The additional path loss based on indoor distance does not in the current state reflect that of Deep-indoor situations. The model utilizing indoor distance produces an increase in the predictive error of \gls{rsrp} as the indoor distance increase, caused by 1) the losses associated with penetration (i.e. $PL_{tw}$) does not reflect the mean attenuation satisfactorily, and 2) the model uses a constant term that is distance-based. As highlighted by the results of the linear regression, using any of the indoor distance metrics of $d_{pen}$ or $d_{in}$ is a poor choice of a predictor using a linear model than compared to 1) features of tunnel geometry $d_{cor,avg}$, and 2) angles of azimuth and elevation. From these findings, it indicates that A) tunnel geometry-based features are superior to indoor distance features and B) The geostatistics of the measurement area is complex, and \gls{rsrp} is highly dependent on local variability. In summary, the findings of A) highlights the importance of tunnel geometry in \gls{o2i} propagation scenarios, and B) Attenuation is largely based on localization, which indicates complex local variability terms.
 
 The engineering of such indoor features of $d_{pen}$ and $d_{in}$ is not a trivial task for underground tunnel systems. Regardless of the features having reduced importance for \gls{rsrp}, obtaining such features is a challenge and is furthermore not suited for use in empirical path loss models. The proposed empirical models should maintain a set of features that are feasible to obtain to motivate the purpose of such models. In this particular case of a tunnel system, the use of any indoor distance metrics to the outer wall can be computed using the accurate LIDAR data. However, this is considered a unique data source and is not a common practice in most deep-indoor scenarios. In other words, the attenuation term based on indoor distance provided by Eq. (\ref{eq:o2i_pl_in}) is not only a poor model for tunnel systems, it also requires a feature that in most cases is a challenge to obtain. Instead, and as indicated by the results, local features of tunnel geometry may offer improved predictive performance, and fewer problems in terms of engineering the required data. For instance, measuring any distance inside of the tunnel can be done with measuring tape and requires no features of accurate indoor position or complex tunnel geometry data. Finally, it is indicated by the results that any empirical model capable of offering satisfactory predictions in such a deep-indoor situation must consider two essential terms for attenuation. 1) the distance to the transmitter and 2) additional attenuation terms based on localized tunnel geometry. The remainder is set as future work for the obtained set of measurements.
 

@@ -182,11 +182,11 @@ As noted eariler, large-scale and more specifically shadow fading is well repres
     UMi (LOS)  & $\sigma_{SF} = 4$                    \\
     UMi (NLOS) & $\sigma_{SF} = 7.82$                 \\ \bottomrule
     \end{tabular}
-    \caption{Shadow fading magnitude from \cite{3GPP38901}}\label{tab:sigma_SF}
+    \caption{Shadow fading magnitude from \cite{3GPP38901}.}\label{tab:sigma_SF}
 \end{table}
 
 
-However, it is also important to note that such distributions have a so-called \emph{decorrelation distance}. This is to ensure spatial consistency between the magnitude of shadowing effects. In other words, obstacles causing the shadowing are likely spatially dependent and thus users moving with a region of the propagation space will experience the same magnitude of shadowing. This is also illustrated in Fig. \ref{fig:shadowing_decorrelation_distance}. The magnitude of shadow fading can be seen as a Gaussian distribution around the mean estimated path loss. The \emph{decorrelation distance} is then the distance between each Gaussian distribution. In practice this can be seen as the shadow fading effects not being sudden, but rather a function of objects surrounding the receiving antenna. If the receiving antenna is to move slowly the shadow fading does not change immediately but related to the so called decorrelation distance. In other words, the decorrelation distance is a term to seperate the objects in the environment that cause and create the shadowing effect. Shadowing a complex function of interactions but it has been found that utilizing such a decorrelation distance is a good approximation. However, it is important to consider also spatial consistency when modelling these impairments
+However, it is also important to note that such distributions have a so-called \emph{decorrelation distance}. This is to ensure spatial consistency between the magnitude of shadowing effects. In other words, obstacles causing the shadowing are likely spatially dependent and thus users moving with a region of the propagation space will experience the same magnitude of shadowing. This is also illustrated in Fig. \ref{fig:shadowing_decorrelation_distance}. The magnitude of shadow fading can be seen as a Gaussian distribution around the mean estimated path loss. The \emph{decorrelation distance} is then the distance between each Gaussian distribution. In practice this can be seen as the shadow fading effects not being sudden, but rather a function of objects surrounding the receiving antenna. If the receiving antenna is to move slowly the shadow fading does not change immediately but related to the so called decorrelation distance. In other words, the decorrelation distance is a term to seperate the objects in the environment that cause and create the shadowing effect. Shadowing a complex function of interactions but it has been found that utilizing such a decorrelation distance is a good approximation. However, it is important to consider also spatial consistency when modelling these impairments.
 
 
 \begin{figure*}[h]
@@ -251,7 +251,7 @@ The principle of ray tracing is considering a single point source from which man
 \begin{figure*}
     \centering
     \includegraphics{chapters/part_pathloss/figures/RemcomRayLaunchingv2.png}
-    \caption{An example of launched rays in Remcom Wireless Insite}
+    \caption{An example of launched rays in Remcom Wireless Insite.}
     \label{fig:raytracing_launching}
 \end{figure*}
 
@@ -259,25 +259,25 @@ In outdoor propagation scenarios of mobile communication systems the number of o
 
 The data required for modern ray-tracing applied for use in mobile Communication systems can be split into several categories as below
 \begin{itemize}
-    \item Clutter (vegetation information).
+    \item Clutter (vegetation information)
     \begin{itemize}
         \item Position
-        \item Height and type.
+        \item Height and type
     \end{itemize}
-    \item Buildings.
+    \item Buildings
     \begin{itemize}
         \item Position
         \item Material composition
         \item Height and shape
     \end{itemize}
-    \item Terrain. 
+    \item Terrain
     \begin{itemize}
         \item Material composition
         \item Height
     \end{itemize}
 \end{itemize}
 
-The data only increases as a multitude of propagation scenarios are considered. For instance, in order to model \gls{o2i} propagation significant detail of not only the buildings and their material is required but also the internal layout and floor dimensions. In addition to these parameters, several configuration elements are also required. Such as the configuration of the transmitter and receiver antennas, along with calibrated noise figures representative of the hardware used. Modern ray-tracing engines such as Remcom Wireless Insite \cite{remcom} simplifies the procedure of integrating a large selection of data by having predefined material composition definitions with permittivity properties. However, not supplied by such modern engines is the data pipeline required for constructing the scene for modelling the propagation scenario. A contribution of this dissertation is the development of a $3$D ray-tracing model of Technical University of Denmark Campus. The necessary details and the resulting procedure for constructing such a model is outline for the remainder of this section
+The data only increases as a multitude of propagation scenarios are considered. For instance, in order to model \gls{o2i} propagation significant detail of not only the buildings and their material is required but also the internal layout and floor dimensions. In addition to these parameters, several configuration elements are also required. Such as the configuration of the transmitter and receiver antennas, along with calibrated noise figures representative of the hardware used. Modern ray-tracing engines such as Remcom Wireless Insite \cite{remcom} simplifies the procedure of integrating a large selection of data by having predefined material composition definitions with permittivity properties. However, not supplied by such modern engines is the data pipeline required for constructing the scene for modelling the propagation scenario. A contribution of this dissertation is the development of a $3$D ray-tracing model of Technical University of Denmark Campus. The necessary details and the resulting procedure for constructing such a model is outline for the remainder of this section.
 
 \subsection{$3$D modelling}
 
@@ -327,7 +327,7 @@ It can be seen from the results, that the binned average performance of the ray-
 \begin{figure}
     \centering
     \includegraphics{chapters/part_pathloss/figures/results/improved_boxplot_results_comparison_ghz.eps}
-    \caption{Predictive error of ray-tracing model for \gls{rsrp} at 811 and 2630 MHz compared to empirical models \uma{A} and \uma{B}}
+    \caption{Predictive error of ray-tracing model for \gls{rsrp} at 811 and 2630 MHz compared to empirical models \uma{A} and \uma{B}.}
     \label{fig:rmse_boxplot_rsrp_comparison}
 \end{figure}
 
