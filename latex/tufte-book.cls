@@ -21,11 +21,7 @@
 % contain only the (arabic) page number in the outside corner.
 %\newif\if@mainmatter \@mainmattertrue
 \renewcommand\frontmatter{%
-  \if@openright%
-    \cleardoublepage%
-  \else%
-    \clearpage%
-  \fi%
+  \clearpage%
   \@mainmatterfalse%
   \pagenumbering{arabic}%
   %\pagestyle{plain}%
@@ -40,11 +36,7 @@
 % The main matter in Tufte's /Beautiful Evidence/ doesn't restart the page
 % numbering---it continues where it left off in the front matter.
 \renewcommand\mainmatter{%
-  \if@openright%
-    \cleardoublepage%
-  \else%
-    \clearpage%
-  \fi%
+  \clearpage%
   \@mainmattertrue%
   \fancyhf{}%
   \ifthenelse{\boolean{@tufte@twoside}}%

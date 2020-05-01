@@ -32,18 +32,14 @@
 \usepackage{epigraph}
 \usepackage{titlesec}
 
-% \makeatletter
-% \let\old@endpart\@endpart
-% \renewcommand\@endpart[1][]{%
-% \vspace{4em}\hfill\begin{tabular}{@{}p{15em}@{}}#1\end{tabular}%
-% \old@endpart}
-% \makeatother
 \makeatletter
 \let\old@endpart\@endpart
 \renewcommand\@endpart[1][]{%
 \vspace{4em}\begin{center}#1\end{center}%
 \old@endpart}
 \makeatother
+
+
 
 \input{acronyms}
 
@@ -296,7 +292,6 @@ Dedicated to my mother (Hi, Mom!).
 
 
 % r.9 introduction
-\cleardoublepage
 \input{chapters/introduction.tex}
 
 
